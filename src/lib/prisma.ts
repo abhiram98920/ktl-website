@@ -1,4 +1,4 @@
-import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@/generated/prisma/client';
 
 const globalForPrisma = globalThis as unknown as {
@@ -6,10 +6,10 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  const databaseUrl =
-    process.env.DATABASE_URL || 'mysql://USER:PASSWORD@HOST:3306/ktl_website';
+  const connectionString =
+    process.env.DATABASE_URL || 'postgresql://USER:PASSWORD@HOST:5432/ktl_website';
 
-  const adapter = new PrismaMariaDb(databaseUrl);
+  const adapter = new PrismaPg({ connectionString });
   return new PrismaClient({ adapter });
 }
 

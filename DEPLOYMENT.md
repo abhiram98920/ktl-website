@@ -11,14 +11,14 @@
 
 Use a long random value for `ADMIN_SECRET`.
 
-## MySQL database
+## Database
 
-Vercel hosts the Next.js app, but it does not provide a native MySQL server for this project. Use a hosted MySQL-compatible database provider, then paste its connection string into Vercel as `DATABASE_URL`.
+Use Vercel Storage's **Prisma Postgres** option for the easiest setup.
 
 Recommended connection string shape:
 
 ```txt
-mysql://USER:PASSWORD@HOST:3306/ktl_website
+postgresql://USER:PASSWORD@HOST:5432/ktl_website
 ```
 
 After the database exists, run:
