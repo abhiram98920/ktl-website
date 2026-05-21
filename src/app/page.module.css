@@ -271,12 +271,12 @@
 .showcaseSection::before,
 .whySection::before,
 .ctaSection::before {
-  content: attr(data-watermark);
+  content: attr(data-watermark) "   " attr(data-watermark) "   " attr(data-watermark);
   position: absolute;
   z-index: 0;
   top: clamp(1.2rem, 4vw, 3rem);
-  left: clamp(-0.3rem, 2vw, 1rem);
-  max-width: 92vw;
+  left: -12vw;
+  min-width: max-content;
   color: rgba(79, 107, 166, 0.07);
   font-family: var(--font-heading);
   font-size: clamp(4.5rem, 14vw, 13rem);
@@ -285,7 +285,32 @@
   letter-spacing: 0;
   text-transform: uppercase;
   pointer-events: none;
-  white-space: normal;
+  white-space: nowrap;
+  animation: watermarkLeft 34s linear infinite;
+}
+
+.introSection::after,
+.consultationSection::after,
+.servicesSection::after,
+.showcaseSection::after,
+.whySection::after,
+.ctaSection::after {
+  content: attr(data-watermark) "   " attr(data-watermark) "   " attr(data-watermark);
+  position: absolute;
+  z-index: 0;
+  top: clamp(5.4rem, 13vw, 12rem);
+  right: -12vw;
+  min-width: max-content;
+  color: rgba(79, 107, 166, 0.045);
+  font-family: var(--font-heading);
+  font-size: clamp(4.5rem, 14vw, 13rem);
+  font-weight: 600;
+  line-height: 0.82;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: watermarkRight 38s linear infinite;
 }
 
 .introSection > *,
@@ -688,6 +713,11 @@
   text-align: left;
 }
 
+.ctaSection::after {
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.075);
+}
+
 .ctaContent .eyebrow,
 .ctaContent h2 {
   color: #ffffff;
@@ -730,6 +760,24 @@
   }
 }
 
+@keyframes watermarkLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@keyframes watermarkRight {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(33.333%, 0, 0);
+  }
+}
+
 @media (max-width: 1100px) {
   .serviceGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -759,11 +807,13 @@
 @media (max-width: 760px) {
   .hero {
     min-height: 100svh;
+    display: block;
+    padding-top: 6.7rem;
   }
 
   .heroContent {
     margin: 0 auto;
-    padding: 5.75rem 0 8.5rem;
+    padding: 0 0 1.25rem;
   }
 
   .heroContent h1 {
@@ -784,7 +834,12 @@
   }
 
   .heroStats {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
     grid-template-columns: repeat(2, 1fr);
+    margin-top: 0.85rem;
   }
 
   .heroStats span {

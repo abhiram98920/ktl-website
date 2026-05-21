@@ -26,11 +26,101 @@ const beats = [
   },
 ];
 
+function createOfficeTexture(color: string, accent: string) {
+  if (typeof document === "undefined") return null;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 128;
+  canvas.height = 128;
+  const context = canvas.getContext("2d");
+
+  if (!context) return null;
+
+  context.fillStyle = color;
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.strokeStyle = accent;
+  context.globalAlpha = 0.18;
+
+  for (let index = -128; index < 256; index += 16) {
+    context.beginPath();
+    context.moveTo(index, 0);
+    context.lineTo(index + 128, 128);
+    context.stroke();
+  }
+
+  context.globalAlpha = 0.08;
+  for (let index = 0; index < 128; index += 8) {
+    context.fillRect(0, index, 128, 1);
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(2.5, 2.5);
+  texture.colorSpace = THREE.SRGBColorSpace;
+
+  return texture;
+}
+
+function materialForMesh(name: string, textures: Record<string, THREE.Texture | null>) {
+  const normalized = name.toLowerCase();
+
+  if (normalized.includes("flourescent")) {
+    return new THREE.MeshStandardMaterial({
+      color: "#f8fbff",
+      emissive: "#dce9ff",
+      emissiveIntensity: 0.7,
+      roughness: 0.35,
+      metalness: 0.05,
+    });
+  }
+
+  if (normalized.includes("wall")) {
+    return new THREE.MeshStandardMaterial({
+      color: "#eef2f8",
+      map: textures.wall,
+      roughness: 0.86,
+      metalness: 0.02,
+    });
+  }
+
+  if (normalized.includes("desk") || normalized.includes("table") || normalized.includes("shelves")) {
+    return new THREE.MeshStandardMaterial({
+      color: "#b98f67",
+      map: textures.wood,
+      roughness: 0.64,
+      metalness: 0.04,
+    });
+  }
+
+  if (normalized.includes("bottle")) {
+    return new THREE.MeshStandardMaterial({
+      color: "#4f6ba6",
+      map: textures.accent,
+      roughness: 0.48,
+      metalness: 0.1,
+    });
+  }
+
+  return new THREE.MeshStandardMaterial({
+    color: normalized.includes("cube") ? "#8fa2c8" : "#d7dee9",
+    map: normalized.includes("cube") ? textures.fabric : textures.wall,
+    roughness: 0.74,
+    metalness: 0.06,
+  });
+}
+
 function OfficeModel({ progressRef }: { progressRef: MutableRefObject<number> }) {
   const groupRef = useRef<THREE.Group>(null);
   const object = useLoader(OBJLoader, "/models/ceo-office-design-simplified.obj");
   const model = useMemo(() => {
     const clone = object.clone(true);
+    const textures = {
+      accent: createOfficeTexture("#4f6ba6", "#ffffff"),
+      fabric: createOfficeTexture("#8fa2c8", "#394f82"),
+      wall: createOfficeTexture("#eef2f8", "#4f6ba6"),
+      wood: createOfficeTexture("#b98f67", "#6f4b30"),
+    };
     const bounds = new THREE.Box3().setFromObject(clone);
     const center = new THREE.Vector3();
     const size = new THREE.Vector3();
@@ -48,11 +138,7 @@ function OfficeModel({ progressRef }: { progressRef: MutableRefObject<number> })
 
       mesh.castShadow = true;
       mesh.receiveShadow = true;
-      mesh.material = new THREE.MeshStandardMaterial({
-        color: "#d8dde7",
-        roughness: 0.72,
-        metalness: 0.08,
-      });
+      mesh.material = materialForMesh(mesh.name, textures);
     });
 
     return clone;
