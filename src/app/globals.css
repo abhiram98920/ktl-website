@@ -112,6 +112,11 @@ h6 {
   line-height: 0.96;
   color: var(--color-primary);
   letter-spacing: 0;
+  transition:
+    color var(--transition-fast),
+    filter var(--transition-fast),
+    text-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 a {
@@ -129,6 +134,63 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+}
+
+button,
+a[class*="Button"],
+a[class*="button"],
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+button::after,
+a[class*="Button"]::after,
+a[class*="button"]::after,
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  top: -28%;
+  bottom: -28%;
+  left: -42%;
+  width: 32%;
+  background: rgba(255, 255, 255, 0.34);
+  transform: translateX(-170%) skewX(-16deg);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+button:hover,
+a[class*="Button"]:hover,
+a[class*="button"]:hover,
+.btn-primary:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 22px 54px rgba(86, 184, 199, 0.2);
+  filter: saturate(1.08);
+}
+
+button:hover::after,
+a[class*="Button"]:hover::after,
+a[class*="button"]:hover::after,
+.btn-primary:hover::after {
+  transform: translateX(520%) skewX(-16deg);
+}
+
+button:active,
+a[class*="Button"]:active,
+a[class*="button"]:active,
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.99);
 }
 
 .container {
@@ -199,6 +261,76 @@ button {
 .image-wrapper:hover img {
   transform: scale(1.04);
   filter: saturate(1.2) contrast(1.02);
+}
+
+:where(
+  [class*="image"],
+  [class*="Image"],
+  [class*="mosaicItem"],
+  [class*="projectCard"],
+  [class*="serviceCard"],
+  [class*="depthCard"],
+  [class*="logo"],
+  [class*="feature"]
+) img {
+  transform-origin: center;
+  transition:
+    clip-path var(--transition-normal),
+    filter var(--transition-normal),
+    opacity var(--transition-normal),
+    transform var(--transition-slow) !important;
+}
+
+:where(
+  [class*="image"],
+  [class*="Image"],
+  [class*="mosaicItem"],
+  [class*="projectCard"],
+  [class*="serviceCard"],
+  [class*="depthCard"],
+  [class*="logo"],
+  [class*="feature"]
+):hover img {
+  filter: saturate(1.2) contrast(1.04) brightness(1.02) !important;
+  transform: scale(1.055) translateY(-2px) !important;
+}
+
+:where(
+  [class*="image"],
+  [class*="Image"],
+  [class*="mosaicItem"],
+  [class*="projectCard"],
+  [class*="serviceCard"],
+  [class*="depthCard"],
+  [class*="feature"]
+) {
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    filter var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+:where(
+  [class*="image"],
+  [class*="Image"],
+  [class*="mosaicItem"],
+  [class*="projectCard"],
+  [class*="serviceCard"],
+  [class*="depthCard"],
+  [class*="feature"]
+):hover {
+  border-color: rgba(86, 184, 199, 0.42);
+  box-shadow: 0 28px 76px rgba(86, 184, 199, 0.18);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(h1, h2, h3):hover {
+    color: #0b3d4a;
+    filter: saturate(1.08);
+    text-shadow: 0 16px 38px rgba(86, 184, 199, 0.18);
+    transform: translateY(-3px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
