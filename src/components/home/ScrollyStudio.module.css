@@ -1,6 +1,5 @@
 .scrollyStage {
   position: relative;
-  min-height: 260svh;
   background:
     linear-gradient(90deg, rgba(29, 29, 31, 0.8) 0%, rgba(29, 29, 31, 0.78) 52%, rgba(247, 251, 252, 0.3) 52%, rgba(247, 251, 252, 0.95) 100%),
     radial-gradient(circle at 74% 42%, rgba(79, 107, 166, 0.22), transparent 36%),
@@ -132,28 +131,45 @@
 
 .storyRail {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
   left: clamp(1.25rem, 8vw, 7rem);
   z-index: 4;
-  width: min(620px, calc(52vw - 80px));
-  height: 100%;
+  width: auto;
   pointer-events: none;
-  perspective: 900px;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.progressMarker {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.storyTrack {
+  position: relative;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .storyBeat {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: min(680px, calc(52vw - 80px));
+  margin-left: clamp(4.4rem, 8vw, 7rem);
+  padding: clamp(8rem, 15vh, 9.5rem) 0 clamp(2.5rem, 6vh, 4.5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(7.4rem, 14vh, 9rem) 0 clamp(2rem, 5vh, 4rem);
   transform-style: preserve-3d;
   will-change: opacity, transform;
   backface-visibility: hidden;
-  opacity: 0;
 }
 
 .storyBeat span {
@@ -203,10 +219,6 @@
 }
 
 @media (max-width: 900px) {
-  .scrollyStage {
-    min-height: 260svh;
-  }
-
   .depthCard {
     opacity: 0.4;
   }
@@ -227,7 +239,7 @@
 
   .storyRail {
     left: 1.25rem;
-    width: calc(100% - 2.5rem);
+    display: none;
   }
 
   .stickyScene::after {
@@ -236,12 +248,10 @@
   }
 
   .storyBeat {
-    min-height: 72vh;
-    padding-top: 7rem;
-  }
-
-  .storyRail {
+    min-height: 100svh;
     width: calc(100% - 2.5rem);
+    margin-left: 1.25rem;
+    padding-top: 7rem;
   }
 
   .storyBeat h2 {

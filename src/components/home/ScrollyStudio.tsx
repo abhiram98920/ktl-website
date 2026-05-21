@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { motion, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { Component, MutableRefObject, ReactNode, Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
@@ -33,8 +33,6 @@ type ScrollyCanvasBoundaryProps = {
 type ScrollyCanvasBoundaryState = {
   hasError: boolean;
 };
-
-type Beat = (typeof beats)[number];
 
 class ScrollyCanvasBoundary extends Component<ScrollyCanvasBoundaryProps, ScrollyCanvasBoundaryState> {
   state = { hasError: false };
@@ -151,25 +149,6 @@ function ModelFallback() {
   );
 }
 
-function StoryBeatCard({ beat, index, progress }: { beat: Beat; index: number; progress: MotionValue<number> }) {
-  const start = index / beats.length;
-  const end = (index + 1) / beats.length;
-  const fadeIn = Math.max(0, start - 0.05);
-  const fadeOut = Math.min(1, end + 0.03);
-  const opacity = useTransform(progress, [fadeIn, start + 0.08, end - 0.08, fadeOut], [0, 1, 1, 0]);
-  const y = useTransform(progress, [fadeIn, start + 0.08, end - 0.08, fadeOut], [42, 0, 0, -42]);
-  const scale = useTransform(progress, [fadeIn, start + 0.08, end - 0.08, fadeOut], [0.96, 1, 1, 0.96]);
-  const rotateX = useTransform(progress, [fadeIn, start + 0.08, end - 0.08, fadeOut], [-10, 0, 0, 10]);
-
-  return (
-    <motion.article className={styles.storyBeat} style={{ opacity, y, scale, rotateX }}>
-      <span>{beat.label}</span>
-      <h2>{beat.title}</h2>
-      <p>{beat.copy}</p>
-    </motion.article>
-  );
-}
-
 export default function ScrollyStudio() {
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef(0);
@@ -182,8 +161,8 @@ export default function ScrollyStudio() {
     progressRef.current = Math.min(0.999, Math.max(0, value));
   });
 
-  const cardOneY = useTransform(scrollYProgress, [0, 1], ["16%", "-34%"]);
-  const cardTwoY = useTransform(scrollYProgress, [0, 1], ["34%", "-22%"]);
+  const cardOneY = useTransform(scrollYProgress, [0, 1], ["8%", "-22%"]);
+  const cardTwoY = useTransform(scrollYProgress, [0, 1], ["24%", "-16%"]);
 
   return (
     <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
@@ -214,11 +193,29 @@ export default function ScrollyStudio() {
           </motion.div>
         </div>
 
-        <div className={styles.storyRail}>
+        <div className={styles.storyRail} aria-hidden="true">
           {beats.map((beat, index) => (
-            <StoryBeatCard key={beat.label} beat={beat} index={index} progress={scrollYProgress} />
+            <div key={beat.label} className={styles.progressMarker}>
+              {String(index + 1).padStart(2, "0")}
+            </div>
           ))}
         </div>
+      </div>
+      <div className={styles.storyTrack}>
+        {beats.map((beat) => (
+          <motion.article
+            key={beat.label}
+            className={styles.storyBeat}
+            initial={{ opacity: 0, y: 30, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ amount: 0.55, margin: "-18% 0px -18% 0px" }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span>{beat.label}</span>
+            <h2>{beat.title}</h2>
+            <p>{beat.copy}</p>
+          </motion.article>
+        ))}
       </div>
     </section>
   );
