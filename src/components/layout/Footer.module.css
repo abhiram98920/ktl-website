@@ -1,9 +1,11 @@
 .footer {
   background:
-    linear-gradient(135deg, #211714 0%, #3d241b 48%, #1d403b 100%);
+    radial-gradient(circle at 18% 8%, rgba(255, 92, 138, 0.28), transparent 28%),
+    radial-gradient(circle at 86% 24%, rgba(98, 199, 255, 0.22), transparent 32%),
+    linear-gradient(135deg, #101827 0%, #24355f 48%, #174c6c 100%);
   color: #ffffff;
   padding-top: clamp(4rem, 8vw, 7rem);
-  border-top: 1px solid rgba(199, 154, 69, 0.32);
+  border-top: 1px solid rgba(255, 212, 92, 0.34);
   position: relative;
   z-index: 5;
   isolation: isolate;
@@ -15,7 +17,7 @@
   content: "";
   position: absolute;
   pointer-events: none;
-  border: 1px solid rgba(199, 154, 69, 0.18);
+  border: 1px solid rgba(255, 212, 92, 0.22);
   width: 320px;
   height: 190px;
   z-index: -1;
@@ -53,22 +55,22 @@
   height: auto;
   background: #ffffff;
   padding: 0.4rem;
-  filter: saturate(0.95) contrast(1.04);
+  filter: saturate(1.05) contrast(1.04);
   transition: transform var(--transition-fast), filter var(--transition-fast);
 }
 
 .column img:hover {
   transform: translateY(-4px) scale(1.02);
-  filter: saturate(1.08) contrast(1.04);
+  filter: saturate(1.22) contrast(1.04);
 }
 
 .column h3 {
   font-size: 0.82rem;
   margin-bottom: 0.7rem;
-  color: #ffe0a3;
+  color: #ffd45c;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 500;
+  font-weight: 900;
 }
 
 .description {
@@ -85,7 +87,7 @@
 }
 
 .column a:hover {
-  color: #ffe0a3;
+  color: #ffd45c;
   transform: translateX(6px);
 }
 

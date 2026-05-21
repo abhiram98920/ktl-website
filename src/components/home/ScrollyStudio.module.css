@@ -1,7 +1,9 @@
 .scrollyStage {
   position: relative;
   min-height: 285vh;
-  background: linear-gradient(180deg, #fffaf1 0%, #edf2ea 20%, #ffffff 68%, #fff3de 100%);
+  background:
+    radial-gradient(circle at 78% 18%, rgba(200, 165, 255, 0.22), transparent 30%),
+    linear-gradient(180deg, #fff8fd 0%, #e5f8ff 20%, #ffffff 68%, #fff7d8 100%);
 }
 
 .stickyScene {
@@ -25,8 +27,8 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(255, 250, 241, 0.95) 0%, rgba(255, 247, 232, 0.56) 40%, rgba(237, 242, 234, 0.82) 100%),
-    linear-gradient(180deg, rgba(255, 247, 232, 0.44) 0%, rgba(255, 255, 255, 0.08) 45%, rgba(255, 250, 241, 0.92) 100%);
+    linear-gradient(90deg, rgba(255, 248, 253, 0.94) 0%, rgba(229, 248, 255, 0.54) 40%, rgba(217, 251, 239, 0.82) 100%),
+    linear-gradient(180deg, rgba(255, 247, 216, 0.42) 0%, rgba(255, 255, 255, 0.08) 45%, rgba(255, 248, 253, 0.9) 100%);
 }
 
 .depthCards {
@@ -41,15 +43,15 @@
   position: absolute;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  box-shadow: 0 28px 80px rgba(184, 93, 52, 0.16);
+  box-shadow: 0 28px 80px rgba(98, 199, 255, 0.18);
   transform-style: preserve-3d;
   opacity: 0.58;
-  background: #fffaf1;
+  background: #fff8fd;
 }
 
 .depthCard img {
   object-fit: cover;
-  filter: saturate(0.84) contrast(1.03);
+  filter: saturate(1.05) contrast(1.03);
 }
 
 .cardOne {
@@ -89,7 +91,7 @@
   font-size: 0.72rem;
   letter-spacing: 2.4px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 900;
   margin-bottom: 1rem;
 }
 
@@ -98,6 +100,7 @@
   line-height: 0.98;
   margin-bottom: 1.4rem;
   text-wrap: balance;
+  font-weight: 900;
 }
 
 .storyBeat p {

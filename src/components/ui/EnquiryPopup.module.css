@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 18px 45px rgba(184, 93, 52, 0.24);
+  box-shadow: 0 18px 45px rgba(255, 92, 138, 0.28);
   z-index: 99;
   transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
 }
@@ -17,8 +17,8 @@
 .floatingButton:hover {
   transform: translateY(-4px);
   background-color: var(--color-accent-3);
-  color: #211714;
-  outline: 1px solid rgba(33, 23, 20, 0.18);
+  color: #101827;
+  outline: 1px solid rgba(16, 24, 39, 0.18);
 }
 
 .overlay {
@@ -26,7 +26,7 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 247, 232, 0.84);
+  background: rgba(255, 248, 253, 0.84);
   backdrop-filter: blur(10px);
   z-index: 1200;
   display: flex;
@@ -45,7 +45,7 @@
   overflow: auto;
   border: 1px solid var(--color-border);
   background: #ffffff;
-  box-shadow: 0 30px 100px rgba(5, 5, 5, 0.18);
+  box-shadow: 0 30px 100px rgba(98, 199, 255, 0.2);
 }
 
 .closeButton {
@@ -68,9 +68,9 @@
   flex-direction: column;
   justify-content: flex-end;
   background:
-    linear-gradient(180deg, rgba(184, 93, 52, 0.12), rgba(33, 23, 20, 0.86)),
+    linear-gradient(180deg, rgba(255, 92, 138, 0.16), rgba(16, 24, 39, 0.84)),
     url("/profile-images/profile_page_08_image_01_xref_42.jpeg") center / cover;
-  filter: saturate(0.9);
+  filter: saturate(1.06);
 }
 
 .visualPanel span,
@@ -87,6 +87,7 @@
   font-size: clamp(2.2rem, 4vw, 4rem);
   line-height: 0.98;
   margin: 1rem 0;
+  font-weight: 900;
 }
 
 .visualPanel p {
@@ -124,7 +125,7 @@
 
 .formGroup label {
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 900;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 1.4px;
@@ -153,7 +154,7 @@
 .formGroup select:focus {
   outline: none;
   border-color: var(--color-clay);
-  background: var(--color-cream);
+  background: #fff8fd;
 }
 
 .successState {
@@ -171,6 +172,7 @@
 
 .successState h2 {
   font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 900;
 }
 
 @keyframes fadeIn {

@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   gap: 1rem;
-  background: var(--color-cream);
+  background: linear-gradient(135deg, #fff8fd, #e5f8ff 52%, #fff7d8);
   animation: loaderExit 1s ease 1.65s forwards;
   pointer-events: none;
 }
@@ -21,6 +21,7 @@
 .loader p {
   color: var(--color-accent-2);
   font-family: "Courier New", monospace;
+  font-weight: 900;
   font-size: clamp(1.15rem, 2vw, 2rem);
   letter-spacing: -0.02em;
   opacity: 0;
@@ -40,7 +41,7 @@
   position: absolute;
   height: 1px;
   width: 36vw;
-  background: linear-gradient(90deg, transparent, rgba(184, 93, 52, 0.22), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 92, 138, 0.26), rgba(98, 199, 255, 0.2), transparent);
   animation: driftLine 18s ease-in-out infinite alternate;
 }
 
@@ -60,8 +61,8 @@
 .panelOne,
 .panelTwo {
   position: absolute;
-  border: 1px solid rgba(184, 93, 52, 0.08);
-  background: rgba(255, 247, 232, 0.34);
+  border: 1px solid rgba(98, 199, 255, 0.12);
+  background: rgba(244, 236, 255, 0.32);
   animation: floatPanel 20s ease-in-out infinite alternate;
   opacity: 0.45;
 }
@@ -90,7 +91,7 @@
   z-index: 1800;
   width: 34px;
   height: 34px;
-  border: 1px solid rgba(184, 93, 52, 0.48);
+  border: 1px solid rgba(255, 92, 138, 0.5);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;

@@ -3,7 +3,8 @@
   padding-bottom: 100px;
   min-height: 100vh;
   background:
-    linear-gradient(135deg, var(--color-cream) 0%, #ffffff 54%, #f4eadc 100%);
+    radial-gradient(circle at 80% 8%, rgba(255, 212, 92, 0.26), transparent 30%),
+    linear-gradient(135deg, #fff8fd 0%, #ffffff 54%, #f4ecff 100%);
 }
 
 .header {
@@ -15,6 +16,7 @@
   font-size: clamp(2.8rem, 6.5vw, 6.4rem);
   line-height: 0.95;
   margin-bottom: 1rem;
+  font-weight: 900;
 }
 
 .subtitle {
@@ -34,7 +36,7 @@
 }
 
 .contactInfo {
-  background: #fffaf1;
+  background: linear-gradient(135deg, #fff8fd, #e5f8ff);
   padding: clamp(2rem, 5vw, 3rem);
 }
 
@@ -42,6 +44,7 @@
   font-size: 2rem;
   color: var(--color-primary);
   margin-bottom: 2rem;
+  font-weight: 900;
 }
 
 .infoBlock {
@@ -66,6 +69,7 @@
   font-size: 1.08rem;
   color: var(--color-primary);
   margin-bottom: 0.5rem;
+  font-weight: 900;
 }
 
 .infoBlock p {
@@ -115,8 +119,8 @@
 .formGroup textarea:focus {
   outline: none;
   border-color: var(--color-clay);
-  background: var(--color-cream);
-  box-shadow: 0 14px 34px rgba(184, 93, 52, 0.12);
+  background: #fff8fd;
+  box-shadow: 0 14px 34px rgba(255, 92, 138, 0.14);
 }
 
 @media (max-width: 992px) {

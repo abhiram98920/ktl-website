@@ -1,21 +1,23 @@
 :root {
-  --color-bg: #fffaf1;
-  --color-surface: #f6efe3;
-  --color-surface-hover: #efe0ce;
-  --color-text: #1f1a17;
-  --color-text-muted: #725f52;
-  --color-primary: #211714;
-  --color-accent: #b85d34;
-  --color-accent-2: #2f6f66;
-  --color-accent-3: #c79a45;
-  --color-ink: #211714;
-  --color-clay: #b85d34;
-  --color-sage: #dbe5d6;
-  --color-cream: #fff7e8;
-  --color-border: rgba(85, 54, 35, 0.16);
+  --color-bg: #fff8fd;
+  --color-surface: #f4ecff;
+  --color-surface-hover: #e5f8ff;
+  --color-text: #182033;
+  --color-text-muted: #627084;
+  --color-primary: #101827;
+  --color-accent: #ff5c8a;
+  --color-accent-2: #22c7a9;
+  --color-accent-3: #ffd45c;
+  --color-sky: #62c7ff;
+  --color-lilac: #c8a5ff;
+  --color-ink: #101827;
+  --color-clay: #ff5c8a;
+  --color-sage: #d9fbef;
+  --color-cream: #fff7d8;
+  --color-border: rgba(38, 55, 92, 0.14);
 
-  --font-primary: "Helvetica Neue", Arial, sans-serif;
-  --font-heading: "Helvetica Neue", Arial, sans-serif;
+  --font-primary: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Arial Black", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
 
   --transition-fast: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   --transition-normal: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -41,7 +43,9 @@ html {
 
 body {
   background:
-    linear-gradient(180deg, var(--color-cream) 0%, #ffffff 42%, #fbf1e6 100%);
+    radial-gradient(circle at 16% 12%, rgba(255, 92, 138, 0.22), transparent 28%),
+    radial-gradient(circle at 82% 10%, rgba(98, 199, 255, 0.24), transparent 30%),
+    linear-gradient(180deg, #fff8fd 0%, #ffffff 42%, #eafcff 100%);
   color: var(--color-text);
   font-family: var(--font-primary);
   line-height: 1.6;
@@ -77,7 +81,7 @@ body::after,
   top: 0;
   height: 100vh;
   width: 1px;
-  background-color: rgba(184, 93, 52, 0.08);
+  background-color: rgba(98, 199, 255, 0.16);
   z-index: 1;
   pointer-events: none;
 }
@@ -106,8 +110,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  font-weight: 300;
-  line-height: 1.04;
+  font-weight: 900;
+  line-height: 0.96;
   color: var(--color-primary);
   letter-spacing: 0;
 }
@@ -145,7 +149,7 @@ button {
   color: #ffffff;
   padding: 0.9rem 1.7rem;
   font-size: 0.76rem;
-  font-weight: 500;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1.8px;
   border: 1px solid var(--color-clay);
@@ -169,9 +173,9 @@ button {
 
 .btn-primary:hover {
   background-color: var(--color-accent-3);
-  color: #211714;
+  color: #101827;
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(184, 93, 52, 0.26);
+  box-shadow: 0 18px 40px rgba(255, 92, 138, 0.28);
 }
 
 .btn-primary:hover::before {
@@ -191,12 +195,12 @@ button {
 .image-wrapper img {
   object-fit: cover;
   transition: transform var(--transition-slow), filter var(--transition-slow);
-  filter: saturate(0.78) contrast(1.03);
+  filter: saturate(1.06) contrast(1.02);
 }
 
 .image-wrapper:hover img {
   transform: scale(1.04);
-  filter: saturate(1.05) contrast(1.02);
+  filter: saturate(1.2) contrast(1.02);
 }
 
 @media (prefers-reduced-motion: reduce) {
