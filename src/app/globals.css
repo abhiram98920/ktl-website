@@ -41,6 +41,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -54,22 +55,27 @@ body {
   position: relative;
 }
 
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
+html::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: transparent;
 }
 
+html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
+  background: rgba(79, 107, 166, 0.72);
   border: 2px solid var(--color-bg);
+  border-radius: 999px;
 }
 
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) var(--color-cream);
+  scrollbar-width: auto;
+  scrollbar-color: rgba(79, 107, 166, 0.72) transparent;
 }
 
 body::before,

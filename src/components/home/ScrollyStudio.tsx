@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { MutableRefObject, useMemo, useRef, useState } from "react";
+import { MutableRefObject, Suspense, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import styles from "./ScrollyStudio.module.css";
 
 const beats = [
@@ -25,49 +26,64 @@ const beats = [
   },
 ];
 
-function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> }) {
+function OfficeModel({ progressRef }: { progressRef: MutableRefObject<number> }) {
   const groupRef = useRef<THREE.Group>(null);
-  const frames = useMemo(() => Array.from({ length: 12 }, (_, index) => index), []);
+  const object = useLoader(OBJLoader, "/models/ceo-office-design-simplified.obj");
+  const model = useMemo(() => {
+    const clone = object.clone(true);
+    const bounds = new THREE.Box3().setFromObject(clone);
+    const center = new THREE.Vector3();
+    const size = new THREE.Vector3();
+    bounds.getCenter(center);
+    bounds.getSize(size);
+
+    const scale = 4.8 / (Math.max(size.x, size.y, size.z) || 1);
+    clone.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
+    clone.scale.setScalar(scale);
+
+    clone.traverse((child) => {
+      const mesh = child as THREE.Mesh;
+
+      if (!mesh.isMesh) return;
+
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.material = new THREE.MeshStandardMaterial({
+        color: "#d8dde7",
+        roughness: 0.72,
+        metalness: 0.08,
+      });
+    });
+
+    return clone;
+  }, [object]);
 
   useFrame(({ clock, camera }) => {
     const progress = progressRef.current;
     const time = clock.elapsedTime;
 
-    camera.position.z = 7.8 - progress * 1.6;
-    camera.position.x = Math.sin(progress * Math.PI) * 0.7;
-    camera.lookAt(0, 0, -5);
+    camera.position.set(2 + Math.sin(progress * Math.PI) * 0.65, 1.25 + progress * 0.25, 7.2 - progress * 1.1);
+    camera.lookAt(1.15, 0.15, 0);
 
     if (!groupRef.current) return;
-    groupRef.current.position.z = progress * 11;
-    groupRef.current.rotation.y = (progress - 0.5) * 0.7 + Math.sin(time * 0.28) * 0.08;
-    groupRef.current.rotation.x = Math.cos(time * 0.22) * 0.06;
+    groupRef.current.position.set(1.45, -0.46 + Math.sin(time * 0.34) * 0.035, -0.15);
+    groupRef.current.rotation.y = -0.72 + progress * 1.12 + Math.sin(time * 0.24) * 0.04;
+    groupRef.current.rotation.x = -0.12 + Math.cos(time * 0.18) * 0.025;
   });
 
   return (
     <group ref={groupRef}>
-      {frames.map((index) => (
-        <mesh
-          key={index}
-          position={[0, 0, -index * 1.65]}
-          rotation={[0, 0, index * 0.09]}
-          scale={[1 + index * 0.045, 1 + index * 0.045, 1]}
-        >
-          <boxGeometry args={[4.9, 2.7, 0.055]} />
-          <meshStandardMaterial
-            color={index % 3 === 0 ? "#4f6ba6" : "#7d91bf"}
-            emissive={index % 3 === 0 ? "#28395f" : "#4f6ba6"}
-            emissiveIntensity={0.2}
-            metalness={0.06}
-            roughness={0.5}
-            wireframe
-          />
-        </mesh>
-      ))}
-      <mesh position={[0, -1.7, -8]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[20, 18, 24, 24]} />
-        <meshStandardMaterial color="#4f6ba6" wireframe opacity={0.3} transparent />
-      </mesh>
+      <primitive object={model} />
     </group>
+  );
+}
+
+function ModelFallback() {
+  return (
+    <mesh position={[1.45, -0.15, 0]}>
+      <boxGeometry args={[2.2, 1.4, 1.4]} />
+      <meshStandardMaterial color="#d8dde7" roughness={0.8} />
+    </mesh>
   );
 }
 
@@ -93,12 +109,19 @@ export default function ScrollyStudio() {
   return (
     <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.stickyScene}>
-        <Canvas camera={{ position: [0, 0, 7.8], fov: 52 }} dpr={1}>
+        <Canvas camera={{ position: [2, 1.25, 7.2], fov: 48 }} dpr={[1, 1.5]} shadows>
           <color attach="background" args={["#f7fbfc"]} />
-          <ambientLight intensity={0.85} />
-          <directionalLight position={[4, 5, 4]} intensity={1.7} />
-          <pointLight position={[-3, 1, 3]} color="#4f6ba6" intensity={3.4} />
-          <FrameTunnel progressRef={progressRef} />
+          <fog attach="fog" args={["#f7fbfc", 7, 15]} />
+          <ambientLight intensity={0.9} />
+          <directionalLight position={[4, 6, 4]} intensity={2.15} castShadow />
+          <pointLight position={[-2.5, 2.2, 3]} color="#4f6ba6" intensity={2.8} />
+          <Suspense fallback={<ModelFallback />}>
+            <OfficeModel progressRef={progressRef} />
+          </Suspense>
+          <mesh position={[1.45, -1.12, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+            <planeGeometry args={[7.2, 6.8]} />
+            <meshStandardMaterial color="#eef2f8" roughness={0.9} />
+          </mesh>
         </Canvas>
 
         <div className={styles.depthCards} aria-hidden="true">
