@@ -171,6 +171,59 @@
   gap: 0.8rem;
 }
 
+.pageTabs,
+.sectionTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.pageTabs button,
+.sectionTabs button {
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: #050505;
+  padding: 0.65rem 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.pageTabs button:hover,
+.sectionTabs button:hover,
+.activeTab,
+.activeSection {
+  background: #050505 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.sectionTabs {
+  max-height: 156px;
+  overflow: auto;
+  padding-bottom: 0.2rem;
+}
+
+.cmsField {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.cmsField span {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.cmsField small {
+  color: var(--color-text-muted);
+}
+
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { getPageConfig, mergeCmsContent } from '@/lib/cmsDefaults';
 import PortfolioGrid, { PortfolioProject } from './PortfolioGrid';
 import styles from './page.module.css';
 
@@ -35,13 +36,35 @@ async function getPortfolioProjects() {
   }
 }
 
+async function getPortfolioHeader() {
+  const config = getPageConfig('portfolio');
+
+  try {
+    const page = await prisma.cmsPage.findUnique({
+      where: { slug: 'portfolio' },
+    });
+    const content = mergeCmsContent(config.defaults, page?.content);
+    const header = content.header as { kicker?: string; title?: string };
+
+    return {
+      kicker: header?.kicker || 'Portfolio',
+      title: header?.title || 'Extracted visuals from the KTL company profile.',
+    };
+  } catch {
+    return {
+      kicker: 'Portfolio',
+      title: 'Extracted visuals from the KTL company profile.',
+    };
+  }
+}
+
 export default async function Portfolio() {
-  const projects = await getPortfolioProjects();
+  const [projects, header] = await Promise.all([getPortfolioProjects(), getPortfolioHeader()]);
 
   return (
     <div className={styles.pageWrapper}>
       <div className="container">
-        <PortfolioGrid projects={projects} />
+        <PortfolioGrid projects={projects} header={header} />
       </div>
     </div>
   );

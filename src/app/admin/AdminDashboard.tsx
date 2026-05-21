@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { CmsField, getPageConfig, mergeCmsContent, pageConfigs } from '@/lib/cmsDefaults';
 import styles from './page.module.css';
 
 type Enquiry = {
@@ -57,8 +58,29 @@ export default function AdminDashboard() {
   const [pages, setPages] = useState<CmsPage[]>([]);
   const [status, setStatus] = useState('Loading dashboard...');
   const [authorized, setAuthorized] = useState(true);
+  const [selectedSlug, setSelectedSlug] = useState('home');
+  const [selectedSection, setSelectedSection] = useState('hero');
 
   const newestEnquiry = useMemo(() => enquiries[0], [enquiries]);
+  const selectedConfig = useMemo(() => getPageConfig(selectedSlug), [selectedSlug]);
+  const savedPage = useMemo(
+    () => pages.find((page) => page.slug === selectedSlug),
+    [pages, selectedSlug]
+  );
+  const selectedContent = useMemo(
+    () => mergeCmsContent(selectedConfig.defaults, savedPage?.content),
+    [savedPage, selectedConfig]
+  );
+  const activeSection = useMemo(
+    () => selectedConfig.sections.find((section) => section.key === selectedSection) || selectedConfig.sections[0],
+    [selectedConfig, selectedSection]
+  );
+  const activeSectionContent = useMemo(() => {
+    const value = selectedContent[activeSection.key];
+    return value && typeof value === 'object' && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : {};
+  }, [activeSection.key, selectedContent]);
 
   const loadDashboard = async () => {
     const [summaryResponse, enquiriesResponse, mediaResponse, contentResponse] = await Promise.all([
@@ -125,31 +147,79 @@ export default function AdminDashboard() {
     await loadDashboard();
   };
 
-  const saveContent = async (event: FormEvent<HTMLFormElement>) => {
+  const formatFieldValue = (field: CmsField, value: unknown) => {
+    if (field.type === 'list') {
+      return Array.isArray(value) ? value.join('\n') : '';
+    }
+
+    if (field.type === 'cards') {
+      if (!Array.isArray(value)) return '';
+
+      return value
+        .map((item) => {
+          if (!item || typeof item !== 'object') return '';
+          const card = item as Record<string, unknown>;
+          return [card.title, card.text || card.copy, card.image]
+            .filter((part) => typeof part === 'string' && part.trim())
+            .join(' | ');
+        })
+        .filter(Boolean)
+        .join('\n');
+    }
+
+    return typeof value === 'string' ? value : '';
+  };
+
+  const parseFieldValue = (field: CmsField, rawValue: FormDataEntryValue | null) => {
+    const raw = String(rawValue || '');
+
+    if (field.type === 'list') {
+      return raw
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+    }
+
+    if (field.type === 'cards') {
+      return raw
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => {
+          const [title = '', text = '', image = ''] = line.split('|').map((part) => part.trim());
+          return image ? { title, text, image } : { title, text };
+        });
+    }
+
+    return raw.trim();
+  };
+
+  const saveSection = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const rawContent = String(form.get('content') || '{}');
-    let content: unknown = {};
+    const nextSection: Record<string, unknown> = {};
 
-    try {
-      content = JSON.parse(rawContent);
-    } catch {
-      setStatus('CMS content must be valid JSON.');
-      return;
-    }
+    activeSection.fields.forEach((field) => {
+      nextSection[field.key] = parseFieldValue(field, form.get(field.key));
+    });
+
+    const nextContent = {
+      ...selectedContent,
+      [activeSection.key]: nextSection,
+    };
 
     await fetch('/api/admin/content', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        slug: form.get('slug'),
-        title: form.get('title'),
-        content,
+        slug: selectedConfig.slug,
+        title: selectedConfig.title,
+        content: nextContent,
       }),
     });
 
-    event.currentTarget.reset();
     await loadDashboard();
+    setStatus(`${selectedConfig.title} / ${activeSection.label} saved`);
   };
 
   const logout = async () => {
@@ -275,21 +345,63 @@ export default function AdminDashboard() {
 
         <article className={styles.panel}>
           <div className={styles.panelHeader}>
-            <p>CMS content</p>
-            <span>Store editable page copy as JSON</span>
+            <p>Page editor</p>
+            <span>Edit every page section by section</span>
           </div>
-          <form className={styles.form} onSubmit={saveContent}>
-            <div className={styles.formRow}>
-              <input name="slug" placeholder="home" required />
-              <input name="title" placeholder="Home page" required />
-            </div>
-            <textarea
-              name="content"
-              rows={7}
-              defaultValue={'{\n  "heroTitle": "KTL Interiors transforms offices with excellence"\n}'}
-            />
-            <button type="submit">Save content</button>
+
+          <div className={styles.pageTabs} aria-label="CMS pages">
+            {pageConfigs.map((page) => (
+              <button
+                key={page.slug}
+                type="button"
+                className={page.slug === selectedSlug ? styles.activeTab : ''}
+                onClick={() => {
+                  setSelectedSlug(page.slug);
+                  setSelectedSection(page.sections[0]?.key || '');
+                }}
+              >
+                {page.slug}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.sectionTabs} aria-label="Page sections">
+            {selectedConfig.sections.map((cmsSection) => (
+              <button
+                key={cmsSection.key}
+                type="button"
+                className={cmsSection.key === activeSection.key ? styles.activeSection : ''}
+                onClick={() => setSelectedSection(cmsSection.key)}
+              >
+                {cmsSection.label}
+              </button>
+            ))}
+          </div>
+
+          <form key={`${selectedSlug}-${activeSection.key}`} className={styles.form} onSubmit={saveSection}>
+            {activeSection.fields.map((field) => {
+              const value = formatFieldValue(field, activeSectionContent[field.key]);
+              const rows = field.type === 'textarea' ? 5 : field.type === 'list' || field.type === 'cards' ? 7 : undefined;
+
+              return (
+                <label className={styles.cmsField} key={field.key}>
+                  <span>{field.label}</span>
+                  {field.help ? <small>{field.help}</small> : null}
+                  {field.type === 'text' || field.type === 'image' ? (
+                    <input
+                      name={field.key}
+                      defaultValue={value}
+                      placeholder={field.type === 'image' ? '/profile-images/example.jpeg or https://...' : field.label}
+                    />
+                  ) : (
+                    <textarea name={field.key} rows={rows} defaultValue={value} />
+                  )}
+                </label>
+              );
+            })}
+            <button type="submit">Save section</button>
           </form>
+
           <div className={styles.assetList}>
             {pages.map((page) => (
               <div key={page.id}>

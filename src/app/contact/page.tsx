@@ -1,8 +1,41 @@
 "use client";
 import styles from './page.module.css';
 import { motion } from 'framer-motion';
+import { getPageConfig } from '@/lib/cmsDefaults';
+import { cards, section, text, useCmsPage } from '@/hooks/useCmsPage';
+
+type ContactHeader = {
+  title: string;
+  subtitle: string;
+};
+
+type ContactBlock = {
+  title?: unknown;
+  text?: unknown;
+};
+
+type ContactDetails = {
+  title: string;
+  blocks: ContactBlock[];
+};
+
+type ContactForm = {
+  namePlaceholder: string;
+  emailPlaceholder: string;
+  phonePlaceholder: string;
+  messagePlaceholder: string;
+  button: string;
+};
+
+const contactDefaults = getPageConfig('contact').defaults;
 
 export default function Contact() {
+  const content = useCmsPage('contact');
+  const header = section(content, 'header', contactDefaults.header as ContactHeader);
+  const details = section(content, 'details', contactDefaults.details as ContactDetails);
+  const form = section(content, 'form', contactDefaults.form as ContactForm);
+  const infoBlocks = cards<ContactBlock>(details.blocks, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Thank you for your message. We will get back to you shortly.");
@@ -17,8 +50,8 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className={styles.header}
         >
-          <h1>Contact Us</h1>
-          <p className={styles.subtitle}>Let us connect and build something great</p>
+          <h1>{text(header.title)}</h1>
+          <p className={styles.subtitle}>{text(header.subtitle)}</p>
         </motion.div>
 
         <div className={styles.contentGrid}>
@@ -28,30 +61,17 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className={styles.contactInfo}
           >
-            <h2>Get in Touch</h2>
-            <div className={styles.infoBlock}>
-              <h3>Head Office</h3>
-              <p>3rd Floor Royal Oak Mall, TK Junction</p>
-              <p>Kannur, Kerala 670002</p>
-            </div>
-            
-            <div className={styles.infoBlock}>
-              <h3>Branch Office</h3>
-              <p>#1282, 2nd Floor, 16th Cross</p>
-              <p>Hongasandra, 7th Main Rd, Begur</p>
-              <p>Bengaluru, Karnataka-560114</p>
-            </div>
-
-            <div className={styles.infoBlock}>
-              <h3>Contact Details</h3>
-              <p>Email: office@ktlcoworks.com</p>
-              <p>Phone: +91 9746 241 399</p>
-            </div>
-            
-            <div className={styles.infoBlock}>
-              <h3>Our Locations</h3>
-              <p>Kochi | Kozhikode | Kannur | Bengaluru | Hyderabad</p>
-            </div>
+            <h2>{text(details.title)}</h2>
+            {infoBlocks.map((block) => (
+              <div className={styles.infoBlock} key={text(block.title)}>
+                <h3>{text(block.title)}</h3>
+                {text(block.text)
+                  .split('/')
+                  .map((line) => line.trim())
+                  .filter(Boolean)
+                  .map((line) => <p key={line}>{line}</p>)}
+              </div>
+            ))}
           </motion.div>
 
           <motion.div 
@@ -63,22 +83,22 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.formGroup}>
                 <label htmlFor="name">Name</label>
-                <input type="text" id="name" required placeholder="Your Name" />
+                <input type="text" id="name" required placeholder={text(form.namePlaceholder)} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" required placeholder="Your Email" />
+                <input type="email" id="email" required placeholder={text(form.emailPlaceholder)} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="phone">Phone</label>
-                <input type="tel" id="phone" required placeholder="Your Phone Number" />
+                <input type="tel" id="phone" required placeholder={text(form.phonePlaceholder)} />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="message">Message</label>
-                <textarea id="message" required rows={5} placeholder="Tell us about your project..."></textarea>
+                <textarea id="message" required rows={5} placeholder={text(form.messagePlaceholder)}></textarea>
               </div>
               <button type="submit" className="btn-primary">
-                Send Message
+                {text(form.button)}
               </button>
             </form>
           </motion.div>

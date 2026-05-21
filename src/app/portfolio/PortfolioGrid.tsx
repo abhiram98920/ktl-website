@@ -5,7 +5,15 @@ import styles from "./page.module.css";
 
 export type PortfolioProject = [title: string, category: string, image: string];
 
-export default function PortfolioGrid({ projects }: { projects: PortfolioProject[] }) {
+type PortfolioGridProps = {
+  projects: PortfolioProject[];
+  header: {
+    kicker: string;
+    title: string;
+  };
+};
+
+export default function PortfolioGrid({ projects, header }: PortfolioGridProps) {
   return (
     <>
       <motion.div
@@ -14,8 +22,8 @@ export default function PortfolioGrid({ projects }: { projects: PortfolioProject
         transition={{ duration: 0.8 }}
         className={styles.header}
       >
-        <p className={styles.kicker}>Portfolio</p>
-        <h1>Extracted visuals from the KTL company profile.</h1>
+        <p className={styles.kicker}>{header.kicker}</p>
+        <h1>{header.title}</h1>
       </motion.div>
 
       <div className={styles.gallery}>
