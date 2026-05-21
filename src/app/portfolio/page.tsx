@@ -1,10 +1,10 @@
-"use client";
+import { prisma } from '@/lib/prisma';
+import PortfolioGrid, { PortfolioProject } from './PortfolioGrid';
+import styles from './page.module.css';
 
-import Image from "next/image";
-import { motion } from "framer-motion";
-import styles from "./page.module.css";
+export const dynamic = 'force-dynamic';
 
-const projects = [
+const fallbackProjects: PortfolioProject[] = [
   ["Corporate Workspace", "Office interior", "/profile-images/profile_page_02_image_01_xref_316.jpeg"],
   ["Collaborative Work Floor", "Coworking hub", "/profile-images/profile_page_06_image_02_xref_29.jpeg"],
   ["Modern Fit-Out", "Commercial execution", "/profile-images/profile_page_07_image_01_xref_37.jpeg"],
@@ -15,40 +15,33 @@ const projects = [
   ["Signature Workspace", "Brand-led interior", "/profile-images/profile_page_12_image_01_xref_64.jpeg"],
 ];
 
-export default function Portfolio() {
+async function getPortfolioProjects() {
+  try {
+    const assets = await prisma.mediaAsset.findMany({
+      where: { category: 'portfolio', isActive: true },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
+      take: 24,
+    });
+
+    if (!assets.length) return fallbackProjects;
+
+    return assets.map((asset) => [
+      asset.title,
+      asset.alt || 'Portfolio image',
+      asset.url,
+    ] satisfies PortfolioProject);
+  } catch {
+    return fallbackProjects;
+  }
+}
+
+export default async function Portfolio() {
+  const projects = await getPortfolioProjects();
+
   return (
     <div className={styles.pageWrapper}>
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className={styles.header}
-        >
-          <p className={styles.kicker}>Portfolio</p>
-          <h1>Extracted visuals from the KTL company profile.</h1>
-        </motion.div>
-
-        <div className={styles.gallery}>
-          {projects.map(([title, category, image], idx) => (
-            <motion.article
-              key={image}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.06, duration: 0.55 }}
-              className={styles.projectCard}
-            >
-              <div className={styles.imagePlaceholder}>
-                <Image src={image} alt={title} fill sizes="(max-width: 768px) 100vw, 33vw" />
-              </div>
-              <div className={styles.projectInfo}>
-                <span>{category}</span>
-                <h3>{title}</h3>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+        <PortfolioGrid projects={projects} />
       </div>
     </div>
   );
