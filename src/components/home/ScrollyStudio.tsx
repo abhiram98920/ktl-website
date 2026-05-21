@@ -36,14 +36,15 @@ function StoryBeat({
   progress: MotionValue<number>;
   total: number;
 }) {
-  const edgeOffset = 0.08;
-  const center = total === 1 ? 0.5 : edgeOffset + index * ((1 - edgeOffset * 2) / (total - 1));
-  const lead = Math.max(0, center - 0.24);
-  const tail = Math.min(1, center + 0.24);
-  const inputRange = [lead, center, tail];
-  const opacity = useTransform(progress, inputRange, [index === 0 ? 1 : 0, 1, index === total - 1 ? 1 : 0]);
-  const y = useTransform(progress, inputRange, [90, 0, -90]);
-  const rotateX = useTransform(progress, inputRange, [-14, 0, 14]);
+  const segment = 1 / total;
+  const start = index * segment;
+  const enter = Math.min(1, start + segment * 0.24);
+  const exit = Math.max(0, start + segment * 0.78);
+  const end = Math.min(1, (index + 1) * segment);
+  const inputRange = [start, enter, exit, end];
+  const opacity = useTransform(progress, inputRange, [index === 0 ? 1 : 0, 1, 1, index === total - 1 ? 1 : 0]);
+  const y = useTransform(progress, inputRange, [72, 0, 0, -72]);
+  const rotateX = useTransform(progress, inputRange, [-10, 0, 0, 10]);
 
   return (
     <motion.article className={styles.storyBeat} style={{ opacity, y, rotateX }}>

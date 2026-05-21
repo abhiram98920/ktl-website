@@ -1,9 +1,9 @@
 .scrollyStage {
   position: relative;
-  min-height: 340vh;
+  min-height: 300vh;
   background: var(--color-bg);
   isolation: isolate;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .scrollyStage::before {
@@ -25,9 +25,11 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
   perspective: 1200px;
   z-index: 1;
+  background: var(--color-bg);
 }
 
 .stickyScene canvas {
@@ -141,7 +143,7 @@
 
 @media (max-width: 900px) {
   .scrollyStage {
-    min-height: 310vh;
+    min-height: 300vh;
   }
 
   .depthCard {
