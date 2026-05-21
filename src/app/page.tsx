@@ -97,7 +97,7 @@ export default function Home() {
 
       <ScrollyStudio />
 
-      <section className={styles.introSection}>
+      <section className={styles.introSection} data-watermark={text(intro.label, "Short profile")}>
         <div className={styles.metricsStrip}>
           <div>
             <strong>5</strong>
@@ -130,7 +130,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.consultationSection}>
+      <section className={styles.consultationSection} data-watermark={text(consultation.label, "Interior consultation")}>
         <div className={styles.consultationImage}>
           <Image
             src={text(consultation.image, "/profile-images/profile_page_04_image_01_xref_347.jpeg")}
@@ -157,7 +157,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.servicesSection}>
+      <section className={styles.servicesSection} data-watermark={text(servicesSection.title, "Services")}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionLabel}>{text(servicesSection.label)}</div>
           <h2>{text(servicesSection.title)}</h2>
@@ -179,7 +179,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.showcaseSection}>
+      <section className={styles.showcaseSection} data-watermark={text(showcase.label, "Portfolio")}>
         <div className={styles.showcaseLead}>
           <div className={styles.sectionLabel}>{text(showcase.label)}</div>
           <h2>{text(showcase.title)}</h2>
@@ -190,21 +190,23 @@ export default function Home() {
         </div>
         <div className={styles.mosaic}>
           {gallery.map((src, index) => (
-            <motion.div
+            <motion.a
               key={src}
+              href="/portfolio"
               initial={{ opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
               className={styles.mosaicItem}
+              aria-label="View portfolio"
             >
               <Image src={src} alt="KTL project interior" fill sizes="(max-width: 768px) 50vw, 24vw" />
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </section>
 
-      <section className={styles.whySection}>
+      <section className={styles.whySection} data-watermark={text(why.label, "Why choose KTL")}>
         <div className={styles.sectionHeader}>
           <div className={styles.sectionLabel}>{text(why.label)}</div>
           <h2>{text(why.title)}</h2>
@@ -216,7 +218,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.ctaSection}>
+      <section className={styles.ctaSection} data-watermark={text(cta.eyebrow, "Consultation")}>
         <Image
           src={text(cta.image, "/profile-images/profile_page_13_image_01_xref_72.jpeg")}
           alt="Finished KTL interior"

@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   gap: 1rem;
-  background: linear-gradient(135deg, #fff8fd, #e5f8ff 52%, #fff7d8);
+  background: var(--color-sky);
   animation: loaderExit 1s ease 1.65s forwards;
   pointer-events: none;
 }
@@ -41,7 +41,7 @@
   position: absolute;
   height: 1px;
   width: 36vw;
-  background: linear-gradient(90deg, transparent, rgba(255, 92, 138, 0.26), rgba(98, 199, 255, 0.2), transparent);
+  background: rgba(86, 184, 199, 0.18);
   animation: driftLine 18s ease-in-out infinite alternate;
 }
 

@@ -62,7 +62,7 @@ export default async function Portfolio() {
   const [projects, header] = await Promise.all([getPortfolioProjects(), getPortfolioHeader()]);
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.pageWrapper} data-watermark={header.kicker}>
       <div className="container">
         <PortfolioGrid projects={projects} header={header} />
       </div>

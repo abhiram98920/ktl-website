@@ -42,7 +42,7 @@ export default function Contact() {
   };
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.pageWrapper} data-watermark={text(header.title, "Contact")}>
       <div className="container">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}

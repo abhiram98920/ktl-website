@@ -68,7 +68,7 @@
   flex-direction: column;
   justify-content: flex-end;
   background:
-    linear-gradient(180deg, rgba(255, 92, 138, 0.16), rgba(16, 24, 39, 0.84)),
+    rgba(18, 35, 49, 0.72),
     url("/profile-images/profile_page_08_image_01_xref_42.jpeg") center / cover;
   filter: saturate(1.06);
 }

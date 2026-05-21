@@ -54,8 +54,8 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
         >
           <boxGeometry args={[4.9, 2.7, 0.055]} />
           <meshStandardMaterial
-            color={index % 3 === 0 ? "#111111" : "#f4f4f1"}
-            emissive={index % 3 === 0 ? "#101010" : "#ffffff"}
+            color={index % 3 === 0 ? "#56b8c7" : "#e7f2fb"}
+            emissive={index % 3 === 0 ? "#56b8c7" : "#ffffff"}
             emissiveIntensity={0.28}
             metalness={0.2}
             roughness={0.48}
@@ -65,7 +65,7 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
       ))}
       <mesh position={[0, -1.7, -8]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[20, 18, 24, 24]} />
-        <meshStandardMaterial color="#f2f2ee" wireframe opacity={0.36} transparent />
+        <meshStandardMaterial color="#dff4ff" wireframe opacity={0.36} transparent />
       </mesh>
     </group>
   );
@@ -87,10 +87,10 @@ export default function ScrollyStudio() {
   const cardTwoY = useTransform(scrollYProgress, [0, 1], ["34%", "-22%"]);
 
   return (
-    <section ref={sectionRef} className={styles.scrollyStage}>
+    <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.stickyScene}>
         <Canvas camera={{ position: [0, 0, 7.8], fov: 52 }} dpr={1}>
-          <color attach="background" args={["#ffffff"]} />
+          <color attach="background" args={["#eef8f6"]} />
           <ambientLight intensity={0.65} />
           <directionalLight position={[4, 5, 4]} intensity={1.4} />
           <pointLight position={[-3, 1, 3]} color="#ffffff" intensity={4} />

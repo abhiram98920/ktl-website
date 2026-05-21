@@ -1,9 +1,24 @@
 .scrollyStage {
   position: relative;
   min-height: 285vh;
-  background:
-    radial-gradient(circle at 78% 18%, rgba(200, 165, 255, 0.22), transparent 30%),
-    linear-gradient(180deg, #fff8fd 0%, #e5f8ff 20%, #ffffff 68%, #fff7d8 100%);
+  background: var(--color-surface-hover);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.scrollyStage::before {
+  content: attr(data-watermark);
+  position: absolute;
+  z-index: 1;
+  top: 7rem;
+  left: clamp(1rem, 5vw, 5rem);
+  color: rgba(18, 35, 49, 0.045);
+  font-family: var(--font-heading);
+  font-size: clamp(5rem, 15vw, 14rem);
+  font-weight: 900;
+  line-height: 0.82;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 
 .stickyScene {
@@ -26,9 +41,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(255, 248, 253, 0.94) 0%, rgba(229, 248, 255, 0.54) 40%, rgba(217, 251, 239, 0.82) 100%),
-    linear-gradient(180deg, rgba(255, 247, 216, 0.42) 0%, rgba(255, 255, 255, 0.08) 45%, rgba(255, 248, 253, 0.9) 100%);
+  background: rgba(244, 251, 251, 0.68);
 }
 
 .depthCards {

@@ -107,21 +107,11 @@
   z-index: 1400;
   min-height: 100vh;
   overflow: auto;
-  background:
-    radial-gradient(circle at 10% 12%, rgba(255, 92, 138, 0.24), transparent 30%),
-    radial-gradient(circle at 88% 16%, rgba(98, 199, 255, 0.26), transparent 30%),
-    linear-gradient(135deg, #fff8fd 0%, #ffffff 52%, #d9fbef 100%);
+  background: var(--color-sky);
 }
 
 .menuOverlay::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 92, 138, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(98, 199, 255, 0.08) 1px, transparent 1px);
-  background-size: 20% 100%, 100% 20%;
+  content: none;
 }
 
 .closeButton {
@@ -203,7 +193,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #ff5c8a, #62c7ff, #22c7a9);
+  background: var(--color-accent);
   transform: translateY(101%);
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: -1;
@@ -249,7 +239,7 @@
 
 .menuFeature {
   border: 1px solid var(--color-border);
-  background: linear-gradient(135deg, #d9fbef, #e5f8ff);
+  background: var(--color-sage);
 }
 
 .featureImage {

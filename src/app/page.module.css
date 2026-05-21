@@ -10,7 +10,7 @@
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: linear-gradient(135deg, #fff8fd, #e8fbff 52%, #fff7d8);
+  background: var(--color-sky);
 }
 
 .heroImage,
@@ -23,9 +23,7 @@
 .heroShade {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 248, 253, 0.94) 0%, rgba(232, 251, 255, 0.28) 42%, rgba(16, 24, 39, 0.72) 100%),
-    linear-gradient(90deg, rgba(255, 247, 216, 0.9), rgba(200, 165, 255, 0.22) 48%, rgba(34, 199, 169, 0.14) 72%, transparent 86%);
+  background: rgba(244, 251, 251, 0.72);
   z-index: 1;
 }
 
@@ -39,7 +37,7 @@
 
 .eyebrow,
 .sectionLabel {
-  color: var(--color-clay);
+  color: var(--color-accent);
   font-size: 0.72rem;
   letter-spacing: 2.4px;
   text-transform: uppercase;
@@ -153,7 +151,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   border-top: 1px solid rgba(255, 255, 255, 0.55);
-  background: linear-gradient(90deg, rgba(255, 92, 138, 0.24), rgba(98, 199, 255, 0.22), rgba(255, 212, 92, 0.24));
+  background: rgba(244, 251, 251, 0.86);
   backdrop-filter: blur(14px);
 }
 
@@ -174,12 +172,49 @@
   width: min(var(--container-width), calc(100% - 96px));
   margin: 0 auto;
   padding: clamp(5rem, 9vw, 9rem) 0;
+  position: relative;
+  isolation: isolate;
 }
 
 .introSection {
   width: min(var(--container-width), calc(100% - 120px));
   margin: 0 auto;
   padding: clamp(7rem, 11vw, 11rem) 0 clamp(5rem, 9vw, 9rem);
+  position: relative;
+  isolation: isolate;
+}
+
+.introSection::before,
+.consultationSection::before,
+.servicesSection::before,
+.showcaseSection::before,
+.whySection::before,
+.ctaSection::before {
+  content: attr(data-watermark);
+  position: absolute;
+  z-index: 0;
+  top: clamp(1.2rem, 4vw, 3rem);
+  left: clamp(-0.3rem, 2vw, 1rem);
+  max-width: 92vw;
+  color: rgba(18, 35, 49, 0.045);
+  font-family: var(--font-heading);
+  font-size: clamp(4.5rem, 14vw, 13rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: normal;
+}
+
+.introSection > *,
+.consultationSection > *,
+.servicesSection > *,
+.showcaseSection > *,
+.whySection > *,
+.ctaSection > * {
+  position: relative;
+  z-index: 1;
 }
 
 .metricsStrip {
@@ -194,7 +229,7 @@
 .metricsStrip div {
   min-height: 148px;
   padding: 1.35rem;
-  background: linear-gradient(135deg, #ffffff, #f4ecff);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -202,9 +237,9 @@
 }
 
 .metricsStrip div:hover {
-  background: linear-gradient(135deg, #d9fbef, #e5f8ff 52%, #fff7d8);
+  background: var(--color-sage);
   transform: translateY(-6px);
-  box-shadow: 0 18px 44px rgba(98, 199, 255, 0.18);
+  box-shadow: 0 18px 44px rgba(86, 184, 199, 0.16);
 }
 
 .metricsStrip strong {
@@ -238,6 +273,8 @@
   grid-template-columns: minmax(320px, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
+  position: relative;
+  isolation: isolate;
 }
 
 .consultationImage {
@@ -246,7 +283,7 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 24px 70px rgba(98, 199, 255, 0.18);
+  box-shadow: 0 24px 70px rgba(86, 184, 199, 0.16);
 }
 
 .consultationImage img {
@@ -286,18 +323,18 @@
 .consultationGrid div {
   min-height: 176px;
   padding: 1.3rem;
-  background: #fff8fd;
+  background: #ffffff;
   transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .consultationGrid div:hover {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
-  color: #ffffff;
+  background: var(--color-surface-hover);
+  color: var(--color-primary);
   transform: translateY(-5px);
 }
 
 .consultationGrid div:hover p {
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-text-muted);
 }
 
 .consultationGrid h3 {
@@ -354,7 +391,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #fff8fd;
+  background: #ffffff;
   border-right: 1px solid var(--color-border);
   position: relative;
   isolation: isolate;
@@ -366,7 +403,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #ff5c8a, #62c7ff 48%, #22c7a9);
+  background: var(--color-surface-hover);
   transform: translateY(101%);
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: -1;
@@ -374,7 +411,7 @@
 
 .serviceTile:hover {
   transform: translateY(-8px);
-  box-shadow: 0 24px 60px rgba(255, 92, 138, 0.22);
+  box-shadow: 0 24px 60px rgba(86, 184, 199, 0.18);
 }
 
 .serviceTile:hover::before {
@@ -383,11 +420,11 @@
 
 .serviceTile:hover span,
 .serviceTile:hover p {
-  color: #ffffff;
+  color: var(--color-primary);
 }
 
 .serviceTile span {
-  color: rgba(255, 92, 138, 0.34);
+  color: rgba(86, 184, 199, 0.42);
   font-size: 3rem;
   font-weight: 900;
 }
@@ -439,7 +476,7 @@
   height: 58px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #fff7d8, #ffd45c);
+  background: var(--color-cream);
   color: #101827;
   border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 50%;
@@ -464,7 +501,7 @@
 
 .mosaicItem:hover {
   transform: translateY(-7px);
-  box-shadow: 0 26px 70px rgba(255, 92, 138, 0.18);
+  box-shadow: 0 26px 70px rgba(86, 184, 199, 0.18);
 }
 
 .mosaicItem:hover::after {
@@ -499,7 +536,7 @@
 
 .reasonItem {
   min-height: 150px;
-  background: linear-gradient(145deg, #ffffff, #f4ecff);
+  background: #ffffff;
   padding: 2rem;
   color: var(--color-primary);
   font-size: 1.08rem;
@@ -515,7 +552,7 @@
   position: absolute;
   inset: auto 0 0 0;
   height: 3px;
-  background: linear-gradient(90deg, #ff5c8a, #62c7ff, #22c7a9, #ffd45c);
+  background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-fast);
@@ -537,19 +574,26 @@
   justify-content: center;
   overflow: hidden;
   text-align: center;
+  isolation: isolate;
 }
 
 .ctaShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 248, 253, 0.08) 0%, rgba(16, 24, 39, 0.58) 62%, rgba(16, 24, 39, 0.88) 100%);
+  background: rgba(18, 35, 49, 0.62);
   z-index: 1;
 }
 
 .ctaContent {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: min(820px, calc(100% - 40px));
+}
+
+.ctaSection::before {
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.11);
+  text-align: left;
 }
 
 .ctaContent .eyebrow,

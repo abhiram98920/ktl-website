@@ -29,7 +29,7 @@ export default function About() {
   const imageItems = list(images.items, []);
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.pageWrapper} data-watermark={text(header.kicker, "About")}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

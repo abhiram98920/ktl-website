@@ -1,8 +1,5 @@
 .footer {
-  background:
-    radial-gradient(circle at 18% 8%, rgba(255, 92, 138, 0.28), transparent 28%),
-    radial-gradient(circle at 86% 24%, rgba(98, 199, 255, 0.22), transparent 32%),
-    linear-gradient(135deg, #101827 0%, #24355f 48%, #174c6c 100%);
+  background: #163449;
   color: #ffffff;
   padding-top: clamp(4rem, 8vw, 7rem);
   border-top: 1px solid rgba(255, 212, 92, 0.34);

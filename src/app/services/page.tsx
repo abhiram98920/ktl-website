@@ -31,7 +31,7 @@ export default function Services() {
   const services = cards<ServiceCard>(serviceSection.items, []);
 
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.pageWrapper} data-watermark={text(header.kicker, "Services")}>
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
