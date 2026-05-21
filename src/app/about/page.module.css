@@ -2,7 +2,7 @@
   padding-top: 150px;
   padding-bottom: 110px;
   min-height: 100vh;
-  background: var(--color-surface-hover);
+  background: var(--color-bg);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -15,7 +15,7 @@
   top: 118px;
   left: clamp(1rem, 4vw, 4rem);
   max-width: 92vw;
-  color: rgba(18, 35, 49, 0.045);
+  color: rgba(15, 124, 144, 0.065);
   font-family: var(--font-heading);
   font-size: clamp(5rem, 15vw, 14rem);
   font-weight: 900;
@@ -96,7 +96,7 @@
 
 .imageBox:hover {
   transform: translateY(-7px);
-  box-shadow: 0 24px 64px rgba(255, 92, 138, 0.18);
+  box-shadow: 0 24px 64px rgba(15, 124, 144, 0.16);
 }
 
 .img1 {

@@ -36,10 +36,14 @@ function StoryBeat({
   progress: MotionValue<number>;
   total: number;
 }) {
-  const inputRange = [(index - 0.45) / total, index / total, (index + 0.78) / total];
-  const opacity = useTransform(progress, inputRange, [0, 1, 0]);
-  const y = useTransform(progress, inputRange, [70, 0, -70]);
-  const rotateX = useTransform(progress, inputRange, [-10, 0, 10]);
+  const edgeOffset = 0.08;
+  const center = total === 1 ? 0.5 : edgeOffset + index * ((1 - edgeOffset * 2) / (total - 1));
+  const lead = Math.max(0, center - 0.24);
+  const tail = Math.min(1, center + 0.24);
+  const inputRange = [lead, center, tail];
+  const opacity = useTransform(progress, inputRange, [index === 0 ? 1 : 0, 1, index === total - 1 ? 1 : 0]);
+  const y = useTransform(progress, inputRange, [90, 0, -90]);
+  const rotateX = useTransform(progress, inputRange, [-14, 0, 14]);
 
   return (
     <motion.article className={styles.storyBeat} style={{ opacity, y, rotateX }}>
@@ -79,8 +83,8 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
         >
           <boxGeometry args={[4.9, 2.7, 0.055]} />
           <meshStandardMaterial
-            color={index % 3 === 0 ? "#0f6f7d" : "#48a978"}
-            emissive={index % 3 === 0 ? "#0b4c59" : "#2d7f59"}
+            color={index % 3 === 0 ? "#0f7c90" : "#2f9e6d"}
+            emissive={index % 3 === 0 ? "#0a5260" : "#1f6f4b"}
             emissiveIntensity={0.38}
             metalness={0.12}
             roughness={0.42}
@@ -90,7 +94,7 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
       ))}
       <mesh position={[0, -1.7, -8]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[20, 18, 24, 24]} />
-        <meshStandardMaterial color="#2c9bad" wireframe opacity={0.42} transparent />
+        <meshStandardMaterial color="#0f7c90" wireframe opacity={0.42} transparent />
       </mesh>
     </group>
   );
@@ -101,7 +105,7 @@ export default function ScrollyStudio() {
   const progressRef = useRef(0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end end"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
@@ -115,10 +119,10 @@ export default function ScrollyStudio() {
     <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.stickyScene}>
         <Canvas camera={{ position: [0, 0, 7.8], fov: 52 }} dpr={1}>
-          <color attach="background" args={["#c7e1e8"]} />
+          <color attach="background" args={["#f7fbfc"]} />
           <ambientLight intensity={0.85} />
           <directionalLight position={[4, 5, 4]} intensity={1.7} />
-          <pointLight position={[-3, 1, 3]} color="#48a978" intensity={4.4} />
+          <pointLight position={[-3, 1, 3]} color="#2f9e6d" intensity={4.4} />
           <FrameTunnel progressRef={progressRef} />
         </Canvas>
 

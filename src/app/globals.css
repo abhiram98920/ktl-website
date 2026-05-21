@@ -1,20 +1,20 @@
 :root {
-  --color-bg: #dcecef;
-  --color-surface: #cfe6e2;
-  --color-surface-hover: #c7e1e8;
+  --color-bg: #f7fbfc;
+  --color-surface: #ffffff;
+  --color-surface-hover: #e8f6f5;
   --color-text: #173044;
   --color-text-muted: #4f6b78;
   --color-primary: #122331;
-  --color-accent: #2c9bad;
-  --color-accent-2: #48a978;
-  --color-accent-3: #7fb5d6;
-  --color-sky: #c7e1e8;
-  --color-lilac: #d6d4e9;
+  --color-accent: #0f7c90;
+  --color-accent-2: #2f9e6d;
+  --color-accent-3: #68b7d5;
+  --color-sky: #eef8fb;
+  --color-lilac: #f4fbfc;
   --color-ink: #122331;
-  --color-clay: #2c9bad;
-  --color-sage: #c8e3d2;
-  --color-cream: #e7dfbd;
-  --color-blush: #ead1d8;
+  --color-clay: #0f7c90;
+  --color-sage: #eaf8f0;
+  --color-cream: #f9fcfb;
+  --color-blush: #edf7f4;
   --color-border: rgba(18, 49, 68, 0.18);
 
   --font-primary: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
@@ -58,12 +58,12 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-track {
-  background: var(--color-cream);
+  background: var(--color-bg);
 }
 
 body::-webkit-scrollbar-thumb {
   background: var(--color-accent);
-  border: 2px solid var(--color-cream);
+  border: 2px solid var(--color-bg);
 }
 
 * {
@@ -79,7 +79,7 @@ body::after,
   top: 0;
   height: 100vh;
   width: 1px;
-  background-color: rgba(44, 155, 173, 0.2);
+  background-color: rgba(15, 124, 144, 0.11);
   z-index: 1;
   pointer-events: none;
 }

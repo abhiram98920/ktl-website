@@ -9,7 +9,7 @@
 }
 
 .scrolled {
-  background: rgba(255, 248, 253, 0.9);
+  background: rgba(247, 251, 252, 0.92);
   backdrop-filter: blur(18px);
   padding: 0.6rem 0;
   border-bottom: 1px solid var(--color-border);
@@ -28,7 +28,7 @@
   line-height: 0;
   background: #ffffff;
   padding: 0.32rem;
-  border: 1px solid rgba(255, 92, 138, 0.2);
+  border: 1px solid rgba(15, 124, 144, 0.18);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
@@ -41,7 +41,7 @@
 .logo:hover {
   transform: translateY(-3px);
   border-color: var(--color-clay);
-  box-shadow: 0 18px 36px rgba(255, 92, 138, 0.2);
+  box-shadow: 0 18px 36px rgba(15, 124, 144, 0.14);
 }
 
 .navActions {
@@ -74,7 +74,7 @@
   display: grid;
   place-content: center;
   gap: 6px;
-  border: 1px solid rgba(255, 92, 138, 0.22);
+  border: 1px solid rgba(15, 124, 144, 0.2);
   background: #ffffff;
   transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
 }
@@ -107,7 +107,7 @@
   z-index: 1400;
   min-height: 100vh;
   overflow: auto;
-  background: var(--color-sky);
+  background: var(--color-bg);
 }
 
 .menuOverlay::before {
@@ -239,7 +239,7 @@
 
 .menuFeature {
   border: 1px solid var(--color-border);
-  background: var(--color-sage);
+  background: var(--color-surface-hover);
 }
 
 .featureImage {
@@ -261,7 +261,7 @@
 
 .featureCopy {
   padding: clamp(1.4rem, 3vw, 2rem);
-  background: #fff8fd;
+  background: #ffffff;
 }
 
 .featureCopy span {

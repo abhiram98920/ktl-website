@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 18px 45px rgba(255, 92, 138, 0.28);
+  box-shadow: 0 18px 45px rgba(15, 124, 144, 0.24);
   z-index: 99;
   transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
 }
@@ -26,7 +26,7 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 248, 253, 0.84);
+  background: rgba(247, 251, 252, 0.86);
   backdrop-filter: blur(10px);
   z-index: 1200;
   display: flex;
@@ -45,7 +45,7 @@
   overflow: auto;
   border: 1px solid var(--color-border);
   background: #ffffff;
-  box-shadow: 0 30px 100px rgba(98, 199, 255, 0.2);
+  box-shadow: 0 30px 100px rgba(15, 124, 144, 0.18);
 }
 
 .closeButton {
@@ -67,9 +67,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background:
-    rgba(18, 35, 49, 0.72),
-    url("/profile-images/profile_page_08_image_01_xref_42.jpeg") center / cover;
+  background-color: #163449;
   filter: saturate(1.06);
 }
 
@@ -154,7 +152,7 @@
 .formGroup select:focus {
   outline: none;
   border-color: var(--color-clay);
-  background: #fff8fd;
+  background: var(--color-surface-hover);
 }
 
 .successState {

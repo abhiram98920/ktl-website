@@ -2,7 +2,7 @@
   padding-top: 150px;
   padding-bottom: 110px;
   min-height: 100vh;
-  background: var(--color-sage);
+  background: var(--color-bg);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -15,7 +15,7 @@
   top: 118px;
   left: clamp(1rem, 4vw, 4rem);
   max-width: 92vw;
-  color: rgba(18, 35, 49, 0.045);
+  color: rgba(15, 124, 144, 0.065);
   font-family: var(--font-heading);
   font-size: clamp(5rem, 15vw, 14rem);
   font-weight: 900;
@@ -94,7 +94,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(18, 35, 49, 0.56);
+  background: rgba(18, 49, 68, 0.58);
 }
 
 .imageWrapper img {
@@ -110,8 +110,8 @@
 
 .serviceCard:hover {
   transform: translateY(-8px);
-  border-color: rgba(255, 92, 138, 0.34);
-  box-shadow: 0 28px 70px rgba(98, 199, 255, 0.22);
+  border-color: rgba(47, 158, 109, 0.46);
+  box-shadow: 0 28px 70px rgba(15, 124, 144, 0.18);
 }
 
 .serviceCard:hover::before {

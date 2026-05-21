@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   gap: 1rem;
-  background: var(--color-sky);
+  background: var(--color-bg);
   animation: loaderExit 1s ease 1.65s forwards;
   pointer-events: none;
 }
@@ -41,7 +41,7 @@
   position: absolute;
   height: 1px;
   width: 36vw;
-  background: rgba(44, 155, 173, 0.2);
+  background: rgba(15, 124, 144, 0.14);
   animation: driftLine 18s ease-in-out infinite alternate;
 }
 
@@ -61,8 +61,8 @@
 .panelOne,
 .panelTwo {
   position: absolute;
-  border: 1px solid rgba(98, 199, 255, 0.12);
-  background: rgba(244, 236, 255, 0.32);
+  border: 1px solid rgba(15, 124, 144, 0.12);
+  background: rgba(234, 248, 240, 0.46);
   animation: floatPanel 20s ease-in-out infinite alternate;
   opacity: 0.45;
 }
@@ -91,7 +91,7 @@
   z-index: 1800;
   width: 34px;
   height: 34px;
-  border: 1px solid rgba(255, 92, 138, 0.5);
+  border: 1px solid rgba(15, 124, 144, 0.48);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
