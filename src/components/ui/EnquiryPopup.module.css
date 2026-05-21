@@ -1,0 +1,202 @@
+.floatingButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 45px rgba(5, 5, 5, 0.18);
+  z-index: 99;
+  transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.floatingButton:hover {
+  transform: translateY(-4px);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  outline: 1px solid var(--color-primary);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  animation: fadeIn 0.25s ease;
+}
+
+.popup {
+  width: min(960px, 100%);
+  max-height: calc(100vh - 2.4rem);
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  position: relative;
+  overflow: auto;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  box-shadow: 0 30px 100px rgba(5, 5, 5, 0.18);
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #ffffff;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: #050505;
+}
+
+.visualPanel {
+  min-height: 100%;
+  padding: clamp(2rem, 5vw, 3.4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, 0.08), rgba(5, 5, 5, 0.86)),
+    url("/profile-images/profile_page_08_image_01_xref_42.jpeg") center / cover;
+  filter: grayscale(1);
+}
+
+.visualPanel span,
+.formKicker {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.visualPanel h2 {
+  color: #ffffff;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  line-height: 0.98;
+  margin: 1rem 0;
+}
+
+.visualPanel p {
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.75;
+}
+
+.content p {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+.content {
+  padding: clamp(2rem, 5vw, 3.4rem);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.05rem;
+  margin-top: 1.2rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.formGroup label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 0.9rem 1rem;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 0.98rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.formGroup select option {
+  background: #ffffff;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.successState {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.successState svg {
+  color: var(--color-primary);
+}
+
+.successState h2 {
+  font-size: clamp(2rem, 4vw, 3.6rem);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .floatingButton {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .popup {
+    grid-template-columns: 1fr;
+  }
+
+  .visualPanel {
+    min-height: 230px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}

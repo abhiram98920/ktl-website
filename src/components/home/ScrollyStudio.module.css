@@ -1,0 +1,141 @@
+.scrollyStage {
+  position: relative;
+  min-height: 285vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f4f1 18%, #ffffff 82%, #ffffff 100%);
+}
+
+.stickyScene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.stickyScene canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.stickyScene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.62) 40%, rgba(255, 255, 255, 0.86) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.1) 45%, rgba(255, 255, 255, 0.94) 100%);
+}
+
+.depthCards {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+.depthCard {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 28px 80px rgba(5, 5, 5, 0.14);
+  transform-style: preserve-3d;
+  opacity: 0.58;
+  background: #ffffff;
+}
+
+.depthCard img {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.03);
+}
+
+.cardOne {
+  width: min(440px, 32vw);
+  height: min(360px, 44vh);
+  right: clamp(2rem, 10vw, 10rem);
+  bottom: 9vh;
+  transform: rotateY(-18deg) rotateX(7deg) translateZ(90px);
+}
+
+.cardTwo {
+  width: min(380px, 28vw);
+  height: min(250px, 31vh);
+  right: clamp(8rem, 24vw, 24rem);
+  top: 10vh;
+  transform: rotateY(18deg) rotateX(-6deg) translateZ(40px);
+}
+
+.storyRail {
+  position: relative;
+  z-index: 3;
+  width: min(590px, calc(100% - 40px));
+  margin-left: clamp(1.25rem, 8vw, 7rem);
+  padding: 22vh 0 26vh;
+}
+
+.storyBeat {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform-style: preserve-3d;
+}
+
+.storyBeat span {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.storyBeat h2 {
+  font-size: clamp(2.6rem, 5vw, 5.25rem);
+  line-height: 0.98;
+  margin-bottom: 1.4rem;
+  text-wrap: balance;
+}
+
+.storyBeat p {
+  max-width: 540px;
+  color: var(--color-text-muted);
+  font-size: 1.02rem;
+  line-height: 1.85;
+}
+
+@media (max-width: 900px) {
+  .scrollyStage {
+    min-height: 255vh;
+  }
+
+  .depthCard {
+    opacity: 0.3;
+  }
+
+  .cardOne {
+    width: 42vw;
+    height: 34vh;
+    right: -5vw;
+    bottom: 9vh;
+  }
+
+  .cardTwo {
+    width: 46vw;
+    height: 25vh;
+    right: 12vw;
+    top: 25vh;
+  }
+
+  .storyRail {
+    margin: 0 auto;
+    padding-top: 24vh;
+  }
+
+  .storyBeat {
+    min-height: 72vh;
+  }
+}

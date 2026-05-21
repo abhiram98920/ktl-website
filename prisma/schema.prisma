@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Enquiry {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?  @db.VarChar(40)
+  source    String   @default("Website")
+  message   String   @db.Text
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model CmsPage {
+  id        Int      @id @default(autoincrement())
+  slug      String   @unique
+  title     String
+  content   Json
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaAsset {
+  id        Int      @id @default(autoincrement())
+  title     String
+  alt       String?
+  url       String
+  category  String   @default("general")
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+}

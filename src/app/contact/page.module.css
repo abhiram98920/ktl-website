@@ -1,0 +1,125 @@
+.pageWrapper {
+  padding-top: 150px;
+  padding-bottom: 100px;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.header {
+  max-width: 920px;
+  margin-bottom: 4rem;
+}
+
+.header h1 {
+  font-size: clamp(2.8rem, 6.5vw, 6.4rem);
+  line-height: 0.95;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+}
+
+.contactInfo {
+  background: #ffffff;
+  padding: clamp(2rem, 5vw, 3rem);
+}
+
+.contactInfo h2 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
+}
+
+.infoBlock {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.infoBlock:hover {
+  transform: translateX(8px);
+  border-color: var(--color-primary);
+}
+
+.infoBlock:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.infoBlock h3 {
+  font-size: 1.08rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.infoBlock p {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.formContainer {
+  background: #ffffff;
+  padding: clamp(2rem, 5vw, 3rem);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.formGroup input,
+.formGroup textarea {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 1rem;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+  box-shadow: 0 14px 34px rgba(5, 5, 5, 0.08);
+}
+
+@media (max-width: 992px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}

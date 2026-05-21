@@ -1,0 +1,156 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  animation: loaderExit 1s ease 1.65s forwards;
+  pointer-events: none;
+}
+
+.loader span {
+  width: 98px;
+  height: 1px;
+  background: #101010;
+  transform-origin: center;
+  animation: loaderLine 1.4s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+}
+
+.loader p {
+  color: #435161;
+  font-family: "Courier New", monospace;
+  font-size: clamp(1.15rem, 2vw, 2rem);
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: loaderText 0.8s ease 0.35s forwards;
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lineOne,
+.lineTwo {
+  position: absolute;
+  height: 1px;
+  width: 36vw;
+  background: linear-gradient(90deg, transparent, rgba(5, 5, 5, 0.16), transparent);
+  animation: driftLine 18s ease-in-out infinite alternate;
+}
+
+.lineOne {
+  top: 19vh;
+  left: -5vw;
+  transform: rotate(-14deg);
+}
+
+.lineTwo {
+  right: -8vw;
+  bottom: 20vh;
+  transform: rotate(18deg);
+  animation-delay: -5s;
+}
+
+.panelOne,
+.panelTwo {
+  position: absolute;
+  border: 1px solid rgba(5, 5, 5, 0.055);
+  background: rgba(255, 255, 255, 0.3);
+  animation: floatPanel 20s ease-in-out infinite alternate;
+  opacity: 0.45;
+}
+
+.panelOne {
+  width: 250px;
+  height: 154px;
+  top: 28vh;
+  right: 12vw;
+}
+
+.panelTwo {
+  width: 170px;
+  height: 112px;
+  left: 8vw;
+  bottom: 18vh;
+  animation-delay: -7s;
+}
+
+.cursor {
+  --x: -80px;
+  --y: -80px;
+  position: fixed;
+  left: var(--x);
+  top: var(--y);
+  z-index: 1800;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(5, 5, 5, 0.45);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width var(--transition-fast), height var(--transition-fast), opacity var(--transition-fast);
+  mix-blend-mode: difference;
+}
+
+@keyframes loaderLine {
+  from {
+    transform: scaleX(0.25);
+    opacity: 0.5;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes loaderText {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes loaderExit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes driftLine {
+  from {
+    translate: 0 0;
+    opacity: 0.25;
+  }
+  to {
+    translate: 5vw 3vh;
+    opacity: 0.8;
+  }
+}
+
+@keyframes floatPanel {
+  from {
+    translate: 0 0;
+    rotate: -4deg;
+  }
+  to {
+    translate: -18px 16px;
+    rotate: 3deg;
+  }
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+
+  .panelOne,
+  .panelTwo {
+    display: none;
+  }
+}
