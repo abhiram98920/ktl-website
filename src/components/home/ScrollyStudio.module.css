@@ -2,8 +2,7 @@
   position: relative;
   width: min(var(--container-width), calc(100% - 96px));
   margin: 0 auto;
-  min-height: 340vh;
-  padding: clamp(6rem, 10vw, 10rem) 0 0;
+  padding: clamp(6rem, 10vw, 10rem) 0 clamp(6rem, 10vw, 10rem);
   background: var(--color-bg);
   isolation: isolate;
   overflow: hidden;
@@ -59,20 +58,23 @@
 .cardStack {
   position: relative;
   z-index: 1;
-  height: 300vh;
 }
 
-.stickyStack {
-  position: sticky;
-  top: clamp(6rem, 12vh, 8rem);
-  height: min(720px, calc(100svh - 7rem));
-  overflow: hidden;
+.cardStep {
+  position: relative;
+  min-height: 115vh;
+  margin-bottom: -52vh;
+}
+
+.cardStep:last-child {
+  min-height: min(720px, calc(100svh - 7rem));
+  margin-bottom: 0;
 }
 
 .processCard {
-  position: absolute;
-  inset: 0;
-  min-height: 100%;
+  position: sticky;
+  top: clamp(6rem, 12vh, 8rem);
+  min-height: min(720px, calc(100svh - 7rem));
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1.08fr);
   gap: clamp(1.5rem, 5vw, 5rem);
@@ -161,7 +163,6 @@
 @media (max-width: 900px) {
   .scrollyStage {
     width: min(100% - 32px, var(--container-width));
-    min-height: auto;
     padding: 5rem 0;
   }
 
@@ -170,17 +171,10 @@
     gap: 1rem;
   }
 
-  .cardStack {
-    height: auto;
-  }
-
-  .stickyStack {
-    position: relative;
-    top: auto;
-    height: auto;
-    display: grid;
-    gap: 1rem;
-    overflow: visible;
+  .cardStep,
+  .cardStep:last-child {
+    min-height: auto;
+    margin-bottom: 1rem;
   }
 
   .processCard {

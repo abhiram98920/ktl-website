@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import styles from "./ScrollyStudio.module.css";
 
@@ -29,11 +29,9 @@ const beats = [
 function ProcessCard({
   beat,
   index,
-  stackY,
 }: {
   beat: (typeof beats)[number];
   index: number;
-  stackY: MotionValue<string>;
 }) {
   const cardRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -47,7 +45,6 @@ function ProcessCard({
     <motion.article
       ref={cardRef}
       className={`${styles.processCard} ${styles[`card${index + 1}`]}`}
-      style={{ y: stackY }}
       initial={{ opacity: 0, scale: 0.98 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: false, amount: 0.36 }}
@@ -67,32 +64,18 @@ function ProcessCard({
 }
 
 export default function ScrollyStudio() {
-  const stageRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: stageRef,
-    offset: ["start start", "end end"],
-  });
-  const cardOneY = useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"]);
-  const cardTwoY = useTransform(scrollYProgress, [0, 0.28, 0.46, 1], ["100vh", "100vh", "0vh", "0vh"]);
-  const cardThreeY = useTransform(scrollYProgress, [0, 0.56, 0.74, 1], ["100vh", "100vh", "0vh", "0vh"]);
-
   return (
-    <section ref={stageRef} className={styles.scrollyStage} data-watermark="Process">
+    <section className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.sectionHeader}>
         <span>Process</span>
         <h2>From brief to handover, every workspace decision stays visible.</h2>
       </div>
       <div className={styles.cardStack}>
-        <div className={styles.stickyStack}>
-          {beats.map((beat, index) => (
-            <ProcessCard
-              key={beat.label}
-              beat={beat}
-              index={index}
-              stackY={index === 0 ? cardOneY : index === 1 ? cardTwoY : cardThreeY}
-            />
-          ))}
-        </div>
+        {beats.map((beat, index) => (
+          <div key={beat.label} className={styles.cardStep}>
+            <ProcessCard beat={beat} index={index} />
+          </div>
+        ))}
       </div>
     </section>
   );
