@@ -52,7 +52,10 @@
   overflow: hidden;
   perspective: 1200px;
   z-index: 1;
-  background: var(--color-bg);
+  background:
+    linear-gradient(90deg, rgba(29, 29, 31, 0.8) 0%, rgba(29, 29, 31, 0.78) 52%, rgba(247, 251, 252, 0.3) 52%, rgba(247, 251, 252, 0.95) 100%),
+    radial-gradient(circle at 74% 42%, rgba(79, 107, 166, 0.22), transparent 36%),
+    var(--color-bg);
 }
 
 .stickyScene canvas {
@@ -73,6 +76,15 @@
   pointer-events: none;
   background: rgba(29, 29, 31, 0.78);
   z-index: 1;
+}
+
+.canvasFallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 70% 42%, rgba(79, 107, 166, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(79, 107, 166, 0.12), transparent 54%);
 }
 
 .depthCards {

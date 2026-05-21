@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { MutableRefObject, Suspense, useMemo, useRef, useState } from "react";
+import { Component, MutableRefObject, ReactNode, Suspense, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import styles from "./ScrollyStudio.module.css";
@@ -26,43 +26,29 @@ const beats = [
   },
 ];
 
-function createOfficeTexture(color: string, accent: string) {
-  if (typeof document === "undefined") return null;
+type ScrollyCanvasBoundaryProps = {
+  children: ReactNode;
+};
 
-  const canvas = document.createElement("canvas");
-  canvas.width = 128;
-  canvas.height = 128;
-  const context = canvas.getContext("2d");
+type ScrollyCanvasBoundaryState = {
+  hasError: boolean;
+};
 
-  if (!context) return null;
+class ScrollyCanvasBoundary extends Component<ScrollyCanvasBoundaryProps, ScrollyCanvasBoundaryState> {
+  state = { hasError: false };
 
-  context.fillStyle = color;
-  context.fillRect(0, 0, canvas.width, canvas.height);
-  context.strokeStyle = accent;
-  context.globalAlpha = 0.18;
-
-  for (let index = -128; index < 256; index += 16) {
-    context.beginPath();
-    context.moveTo(index, 0);
-    context.lineTo(index + 128, 128);
-    context.stroke();
+  static getDerivedStateFromError() {
+    return { hasError: true };
   }
 
-  context.globalAlpha = 0.08;
-  for (let index = 0; index < 128; index += 8) {
-    context.fillRect(0, index, 128, 1);
+  render() {
+    if (this.state.hasError) return <div className={styles.canvasFallback} aria-hidden="true" />;
+
+    return this.props.children;
   }
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(2.5, 2.5);
-  texture.colorSpace = THREE.SRGBColorSpace;
-
-  return texture;
 }
 
-function materialForMesh(name: string, textures: Record<string, THREE.Texture | null>) {
+function materialForMesh(name: string) {
   const normalized = name.toLowerCase();
 
   if (normalized.includes("flourescent")) {
@@ -78,7 +64,6 @@ function materialForMesh(name: string, textures: Record<string, THREE.Texture | 
   if (normalized.includes("wall")) {
     return new THREE.MeshStandardMaterial({
       color: "#eef2f8",
-      map: textures.wall,
       roughness: 0.86,
       metalness: 0.02,
     });
@@ -87,7 +72,6 @@ function materialForMesh(name: string, textures: Record<string, THREE.Texture | 
   if (normalized.includes("desk") || normalized.includes("table") || normalized.includes("shelves")) {
     return new THREE.MeshStandardMaterial({
       color: "#b98f67",
-      map: textures.wood,
       roughness: 0.64,
       metalness: 0.04,
     });
@@ -96,7 +80,6 @@ function materialForMesh(name: string, textures: Record<string, THREE.Texture | 
   if (normalized.includes("bottle")) {
     return new THREE.MeshStandardMaterial({
       color: "#4f6ba6",
-      map: textures.accent,
       roughness: 0.48,
       metalness: 0.1,
     });
@@ -104,7 +87,6 @@ function materialForMesh(name: string, textures: Record<string, THREE.Texture | 
 
   return new THREE.MeshStandardMaterial({
     color: normalized.includes("cube") ? "#8fa2c8" : "#d7dee9",
-    map: normalized.includes("cube") ? textures.fabric : textures.wall,
     roughness: 0.74,
     metalness: 0.06,
   });
@@ -115,12 +97,6 @@ function OfficeModel({ progressRef }: { progressRef: MutableRefObject<number> })
   const object = useLoader(OBJLoader, "/models/ceo-office-design-simplified.obj");
   const model = useMemo(() => {
     const clone = object.clone(true);
-    const textures = {
-      accent: createOfficeTexture("#4f6ba6", "#ffffff"),
-      fabric: createOfficeTexture("#8fa2c8", "#394f82"),
-      wall: createOfficeTexture("#eef2f8", "#4f6ba6"),
-      wood: createOfficeTexture("#b98f67", "#6f4b30"),
-    };
     const bounds = new THREE.Box3().setFromObject(clone);
     const center = new THREE.Vector3();
     const size = new THREE.Vector3();
@@ -138,7 +114,7 @@ function OfficeModel({ progressRef }: { progressRef: MutableRefObject<number> })
 
       mesh.castShadow = true;
       mesh.receiveShadow = true;
-      mesh.material = materialForMesh(mesh.name, textures);
+      mesh.material = materialForMesh(mesh.name);
     });
 
     return clone;
@@ -195,20 +171,22 @@ export default function ScrollyStudio() {
   return (
     <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.stickyScene}>
-        <Canvas camera={{ position: [2, 1.25, 7.2], fov: 48 }} dpr={[1, 1.5]} shadows>
-          <color attach="background" args={["#f7fbfc"]} />
-          <fog attach="fog" args={["#f7fbfc", 7, 15]} />
-          <ambientLight intensity={0.9} />
-          <directionalLight position={[4, 6, 4]} intensity={2.15} castShadow />
-          <pointLight position={[-2.5, 2.2, 3]} color="#4f6ba6" intensity={2.8} />
-          <Suspense fallback={<ModelFallback />}>
-            <OfficeModel progressRef={progressRef} />
-          </Suspense>
-          <mesh position={[1.45, -1.12, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-            <planeGeometry args={[7.2, 6.8]} />
-            <meshStandardMaterial color="#eef2f8" roughness={0.9} />
-          </mesh>
-        </Canvas>
+        <ScrollyCanvasBoundary>
+          <Canvas camera={{ position: [2, 1.25, 7.2], fov: 48 }} dpr={[1, 1.5]} shadows>
+            <color attach="background" args={["#f7fbfc"]} />
+            <fog attach="fog" args={["#f7fbfc", 7, 15]} />
+            <ambientLight intensity={0.9} />
+            <directionalLight position={[4, 6, 4]} intensity={2.15} castShadow />
+            <pointLight position={[-2.5, 2.2, 3]} color="#4f6ba6" intensity={2.8} />
+            <Suspense fallback={<ModelFallback />}>
+              <OfficeModel progressRef={progressRef} />
+            </Suspense>
+            <mesh position={[1.45, -1.12, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+              <planeGeometry args={[7.2, 6.8]} />
+              <meshStandardMaterial color="#eef2f8" roughness={0.9} />
+            </mesh>
+          </Canvas>
+        </ScrollyCanvasBoundary>
 
         <div className={styles.depthCards} aria-hidden="true">
           <motion.div className={`${styles.depthCard} ${styles.cardOne}`} style={{ y: cardOneY }}>
