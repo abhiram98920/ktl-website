@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { Component, MutableRefObject, ReactNode, Suspense, useMemo, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Component, MutableRefObject, ReactNode, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import styles from "./ScrollyStudio.module.css";
@@ -155,15 +155,31 @@ export default function ScrollyStudio() {
   const [activeBeat, setActiveBeat] = useState(0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 72%", "end 28%"],
+    offset: ["start start", "end end"],
   });
 
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
-    const progress = Math.min(0.999, Math.max(0, value));
-    progressRef.current = progress;
-    const nextBeat = Math.min(beats.length - 1, Math.floor(progress * beats.length + 0.08));
-    setActiveBeat((currentBeat) => (currentBeat === nextBeat ? currentBeat : nextBeat));
-  });
+  useEffect(() => {
+    const updateBeat = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const scrollable = Math.max(1, rect.height - window.innerHeight);
+      const progress = Math.min(0.999, Math.max(0, -rect.top / scrollable));
+      const nextBeat = Math.min(beats.length - 1, Math.floor(progress * beats.length));
+
+      progressRef.current = progress;
+      setActiveBeat((currentBeat) => (currentBeat === nextBeat ? currentBeat : nextBeat));
+    };
+
+    updateBeat();
+    window.addEventListener("scroll", updateBeat, { passive: true });
+    window.addEventListener("resize", updateBeat);
+
+    return () => {
+      window.removeEventListener("scroll", updateBeat);
+      window.removeEventListener("resize", updateBeat);
+    };
+  }, []);
 
   const cardOneY = useTransform(scrollYProgress, [0, 1], ["16%", "-34%"]);
   const cardTwoY = useTransform(scrollYProgress, [0, 1], ["34%", "-22%"]);
