@@ -1,8 +1,9 @@
 .footer {
-  background-color: #050505;
+  background:
+    linear-gradient(135deg, #211714 0%, #3d241b 48%, #1d403b 100%);
   color: #ffffff;
   padding-top: clamp(4rem, 8vw, 7rem);
-  border-top: 1px solid #050505;
+  border-top: 1px solid rgba(199, 154, 69, 0.32);
   position: relative;
   z-index: 5;
   isolation: isolate;
@@ -14,7 +15,7 @@
   content: "";
   position: absolute;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(199, 154, 69, 0.18);
   width: 320px;
   height: 190px;
   z-index: -1;
@@ -52,19 +53,19 @@
   height: auto;
   background: #ffffff;
   padding: 0.4rem;
-  filter: grayscale(1) contrast(1.05);
+  filter: saturate(0.95) contrast(1.04);
   transition: transform var(--transition-fast), filter var(--transition-fast);
 }
 
 .column img:hover {
   transform: translateY(-4px) scale(1.02);
-  filter: grayscale(0) contrast(1.04);
+  filter: saturate(1.08) contrast(1.04);
 }
 
 .column h3 {
   font-size: 0.82rem;
   margin-bottom: 0.7rem;
-  color: #ffffff;
+  color: #ffe0a3;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
@@ -84,7 +85,7 @@
 }
 
 .column a:hover {
-  color: #ffffff;
+  color: #ffe0a3;
   transform: translateX(6px);
 }
 

@@ -10,13 +10,13 @@
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--color-cream);
 }
 
 .heroImage,
 .ctaImage {
   object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
+  filter: saturate(1.05) contrast(1.02);
   animation: heroDrift 16s ease-in-out infinite alternate;
 }
 
@@ -24,8 +24,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.22) 44%, rgba(5, 5, 5, 0.78) 100%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.82), transparent 70%);
+    linear-gradient(180deg, rgba(255, 250, 241, 0.96) 0%, rgba(255, 247, 232, 0.34) 42%, rgba(40, 26, 21, 0.78) 100%),
+    linear-gradient(90deg, rgba(255, 244, 222, 0.86), rgba(219, 229, 214, 0.22) 58%, transparent 78%);
   z-index: 1;
 }
 
@@ -39,7 +39,7 @@
 
 .eyebrow,
 .sectionLabel {
-  color: var(--color-text-muted);
+  color: var(--color-clay);
   font-size: 0.72rem;
   letter-spacing: 2.4px;
   text-transform: uppercase;
@@ -56,7 +56,7 @@
 
 .heroCopy {
   max-width: 650px;
-  color: rgba(5, 5, 5, 0.72);
+  color: rgba(31, 26, 23, 0.78);
   font-size: clamp(1rem, 1.3vw, 1.2rem);
   line-height: 1.8;
 }
@@ -70,7 +70,7 @@
 
 .heroBadges span {
   color: var(--color-primary);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 247, 232, 0.78);
   border: 1px solid var(--color-border);
   padding: 0.42rem 0.7rem;
   font-size: 0.68rem;
@@ -81,7 +81,7 @@
 }
 
 .heroBadges span:hover {
-  background: #050505;
+  background: var(--color-accent-2);
   color: #ffffff;
   transform: translateY(-3px);
 }
@@ -132,15 +132,15 @@
   letter-spacing: 1.8px;
   font-size: 0.72rem;
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 247, 232, 0.72);
   transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .secondaryButton:hover {
-  background: #ffffff;
-  border-color: var(--color-primary);
+  background: var(--color-sage);
+  border-color: var(--color-accent-2);
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(5, 5, 5, 0.12);
+  box-shadow: 0 18px 40px rgba(47, 111, 102, 0.18);
 }
 
 .heroStats {
@@ -151,8 +151,8 @@
   bottom: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid rgba(255, 247, 232, 0.45);
+  background: rgba(255, 247, 232, 0.78);
   backdrop-filter: blur(14px);
 }
 
@@ -160,7 +160,7 @@
   padding: 1rem;
   text-align: center;
   color: var(--color-primary);
-  border-right: 1px solid rgba(5, 5, 5, 0.12);
+  border-right: 1px solid rgba(184, 93, 52, 0.16);
   text-transform: uppercase;
   letter-spacing: 1.8px;
   font-size: 0.68rem;
@@ -193,7 +193,7 @@
 .metricsStrip div {
   min-height: 148px;
   padding: 1.35rem;
-  background: #ffffff;
+  background: linear-gradient(135deg, #ffffff, var(--color-cream));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -201,9 +201,9 @@
 }
 
 .metricsStrip div:hover {
-  background: #f4f4f1;
+  background: linear-gradient(135deg, var(--color-sage), #fff3de);
   transform: translateY(-6px);
-  box-shadow: 0 18px 44px rgba(5, 5, 5, 0.08);
+  box-shadow: 0 18px 44px rgba(184, 93, 52, 0.12);
 }
 
 .metricsStrip strong {
@@ -245,17 +245,17 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 24px 70px rgba(5, 5, 5, 0.08);
+  box-shadow: 0 24px 70px rgba(184, 93, 52, 0.13);
 }
 
 .consultationImage img {
   object-fit: cover;
-  filter: grayscale(1) contrast(1.04);
+  filter: saturate(0.86) contrast(1.03);
   transition: filter var(--transition-slow), transform var(--transition-slow);
 }
 
 .consultationImage:hover img {
-  filter: grayscale(0.15) contrast(1.02);
+  filter: saturate(1.08) contrast(1.02);
   transform: scale(1.03);
 }
 
@@ -284,12 +284,12 @@
 .consultationGrid div {
   min-height: 176px;
   padding: 1.3rem;
-  background: #ffffff;
+  background: #fffaf1;
   transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .consultationGrid div:hover {
-  background: #050505;
+  background: var(--color-accent-2);
   color: #ffffff;
   transform: translateY(-5px);
 }
@@ -350,7 +350,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #ffffff;
+  background: #fffaf1;
   border-right: 1px solid var(--color-border);
   position: relative;
   isolation: isolate;
@@ -362,7 +362,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: #050505;
+  background: linear-gradient(135deg, var(--color-clay), var(--color-accent-2));
   transform: translateY(101%);
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: -1;
@@ -370,7 +370,7 @@
 
 .serviceTile:hover {
   transform: translateY(-8px);
-  box-shadow: 0 24px 60px rgba(5, 5, 5, 0.16);
+  box-shadow: 0 24px 60px rgba(184, 93, 52, 0.2);
 }
 
 .serviceTile:hover::before {
@@ -422,7 +422,7 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 18px 44px rgba(5, 5, 5, 0.06);
+  box-shadow: 0 18px 44px rgba(47, 111, 102, 0.12);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
@@ -435,9 +435,9 @@
   height: 58px;
   display: grid;
   place-items: center;
-  background: #ffffff;
-  color: #050505;
-  border: 1px solid rgba(5, 5, 5, 0.18);
+  background: var(--color-accent-3);
+  color: #211714;
+  border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 50%;
   font-size: 0.62rem;
   letter-spacing: 1.5px;
@@ -449,18 +449,18 @@
 
 .mosaicItem img {
   object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
+  filter: saturate(0.8) contrast(1.04);
   transition: transform var(--transition-slow), filter var(--transition-fast);
 }
 
 .mosaicItem:hover img {
   transform: scale(1.06);
-  filter: grayscale(0.08) contrast(1.02);
+  filter: saturate(1.08) contrast(1.02);
 }
 
 .mosaicItem:hover {
   transform: translateY(-7px);
-  box-shadow: 0 26px 70px rgba(5, 5, 5, 0.14);
+  box-shadow: 0 26px 70px rgba(184, 93, 52, 0.18);
 }
 
 .mosaicItem:hover::after {
@@ -495,7 +495,7 @@
 
 .reasonItem {
   min-height: 150px;
-  background: #ffffff;
+  background: linear-gradient(145deg, #ffffff, #fff3de);
   padding: 2rem;
   color: var(--color-primary);
   font-size: 1.08rem;
@@ -511,7 +511,7 @@
   position: absolute;
   inset: auto 0 0 0;
   height: 3px;
-  background: #050505;
+  background: linear-gradient(90deg, var(--color-clay), var(--color-accent-2), var(--color-accent-3));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-fast);
@@ -538,7 +538,7 @@
 .ctaShade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(5, 5, 5, 0.72) 72%, rgba(5, 5, 5, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(255, 247, 232, 0.12) 0%, rgba(57, 34, 24, 0.7) 68%, rgba(33, 23, 20, 0.92) 100%);
   z-index: 1;
 }
 

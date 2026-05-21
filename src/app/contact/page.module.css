@@ -2,7 +2,8 @@
   padding-top: 150px;
   padding-bottom: 100px;
   min-height: 100vh;
-  background: #ffffff;
+  background:
+    linear-gradient(135deg, var(--color-cream) 0%, #ffffff 54%, #f4eadc 100%);
 }
 
 .header {
@@ -18,7 +19,7 @@
 
 .subtitle {
   font-size: 0.82rem;
-  color: var(--color-text-muted);
+  color: var(--color-clay);
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
@@ -33,7 +34,7 @@
 }
 
 .contactInfo {
-  background: #ffffff;
+  background: #fffaf1;
   padding: clamp(2rem, 5vw, 3rem);
 }
 
@@ -52,7 +53,7 @@
 
 .infoBlock:hover {
   transform: translateX(8px);
-  border-color: var(--color-primary);
+  border-color: var(--color-clay);
 }
 
 .infoBlock:last-child {
@@ -113,9 +114,9 @@
 .formGroup input:focus,
 .formGroup textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
-  background: var(--color-surface);
-  box-shadow: 0 14px 34px rgba(5, 5, 5, 0.08);
+  border-color: var(--color-clay);
+  background: var(--color-cream);
+  box-shadow: 0 14px 34px rgba(184, 93, 52, 0.12);
 }
 
 @media (max-width: 992px) {

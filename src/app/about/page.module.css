@@ -2,7 +2,8 @@
   padding-top: 150px;
   padding-bottom: 110px;
   min-height: 100vh;
-  background: #ffffff;
+  background:
+    linear-gradient(135deg, var(--color-cream) 0%, #ffffff 46%, var(--color-sage) 100%);
 }
 
 .header {
@@ -11,7 +12,7 @@
 }
 
 .kicker {
-  color: var(--color-text-muted);
+  color: var(--color-clay);
   font-size: 0.72rem;
   letter-spacing: 2.4px;
   text-transform: uppercase;
@@ -32,7 +33,7 @@
 }
 
 .textContent {
-  border-left: 1px solid var(--color-primary);
+  border-left: 3px solid var(--color-clay);
   padding-left: 2rem;
 }
 
@@ -60,18 +61,18 @@
 
 .imageBox img {
   object-fit: cover;
-  filter: grayscale(1) contrast(1.04);
+  filter: saturate(0.82) contrast(1.03);
   transition: transform var(--transition-slow), filter var(--transition-slow);
 }
 
 .imageBox:hover img {
   transform: scale(1.04);
-  filter: grayscale(0.1) contrast(1.02);
+  filter: saturate(1.08) contrast(1.02);
 }
 
 .imageBox:hover {
   transform: translateY(-7px);
-  box-shadow: 0 24px 64px rgba(5, 5, 5, 0.14);
+  box-shadow: 0 24px 64px rgba(184, 93, 52, 0.18);
 }
 
 .img1 {
