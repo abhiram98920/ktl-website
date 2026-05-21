@@ -1,9 +1,13 @@
 .scrollyStage {
   position: relative;
-  min-height: 300svh;
-  background: var(--color-bg);
+  min-height: 260svh;
+  background:
+    linear-gradient(90deg, rgba(29, 29, 31, 0.8) 0%, rgba(29, 29, 31, 0.78) 52%, rgba(247, 251, 252, 0.3) 52%, rgba(247, 251, 252, 0.95) 100%),
+    radial-gradient(circle at 74% 42%, rgba(79, 107, 166, 0.22), transparent 36%),
+    var(--color-bg);
   isolation: isolate;
   overflow: hidden;
+  margin-bottom: -1px;
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(90deg, rgba(29, 29, 31, 0), rgba(79, 107, 166, 0.26), rgba(29, 29, 31, 0)) 1;
 }
@@ -149,6 +153,7 @@
   transform-style: preserve-3d;
   will-change: opacity, transform;
   backface-visibility: hidden;
+  opacity: 0;
 }
 
 .storyBeat span {
@@ -199,7 +204,7 @@
 
 @media (max-width: 900px) {
   .scrollyStage {
-    min-height: 300svh;
+    min-height: 260svh;
   }
 
   .depthCard {
