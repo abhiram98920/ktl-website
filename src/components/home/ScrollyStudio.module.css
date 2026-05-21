@@ -1,6 +1,6 @@
 .scrollyStage {
   position: relative;
-  min-height: 285vh;
+  min-height: 340vh;
   background: var(--color-surface-hover);
   isolation: isolate;
   overflow: hidden;
@@ -46,7 +46,7 @@
   left: 0;
   width: min(56vw, 760px);
   pointer-events: none;
-  background: rgba(231, 242, 251, 0.88);
+  background: rgba(31, 74, 96, 0.88);
   z-index: 1;
 }
 
@@ -90,23 +90,30 @@
 }
 
 .storyRail {
-  position: relative;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(1.25rem, 8vw, 7rem);
   z-index: 4;
   width: min(560px, calc(100% - 40px));
-  margin-left: clamp(1.25rem, 8vw, 7rem);
-  padding: 22vh 0 26vh;
+  height: 100%;
+  pointer-events: none;
+  perspective: 900px;
 }
 
 .storyBeat {
-  min-height: 78vh;
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   transform-style: preserve-3d;
+  will-change: opacity, transform;
 }
 
 .storyBeat span {
-  color: var(--color-clay);
+  color: #8ed4df;
   font-size: 0.72rem;
   letter-spacing: 2.4px;
   text-transform: uppercase;
@@ -120,18 +127,19 @@
   margin-bottom: 1.4rem;
   text-wrap: balance;
   font-weight: 900;
+  color: #ffffff;
 }
 
 .storyBeat p {
   max-width: 540px;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 1.02rem;
   line-height: 1.85;
 }
 
 @media (max-width: 900px) {
   .scrollyStage {
-    min-height: 255vh;
+    min-height: 310vh;
   }
 
   .depthCard {
@@ -153,13 +161,13 @@
   }
 
   .storyRail {
-    margin: 0 auto;
-    padding-top: 24vh;
+    left: 1.25rem;
+    width: calc(100% - 2.5rem);
   }
 
   .stickyScene::after {
     width: 100%;
-    background: rgba(231, 242, 251, 0.82);
+    background: rgba(31, 74, 96, 0.82);
   }
 
   .storyBeat {

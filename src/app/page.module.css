@@ -239,7 +239,7 @@
 .metricsStrip div:hover {
   background: var(--color-sage);
   transform: translateY(-6px);
-  box-shadow: 0 18px 44px rgba(86, 184, 199, 0.16);
+  box-shadow: 0 18px 44px rgba(22, 52, 73, 0.16);
 }
 
 .metricsStrip strong {
@@ -283,7 +283,7 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  box-shadow: 0 24px 70px rgba(86, 184, 199, 0.16);
+  box-shadow: 0 24px 70px rgba(22, 52, 73, 0.16);
 }
 
 .consultationImage img {
@@ -411,7 +411,7 @@
 
 .serviceTile:hover {
   transform: translateY(-8px);
-  box-shadow: 0 24px 60px rgba(86, 184, 199, 0.18);
+  box-shadow: 0 24px 60px rgba(22, 52, 73, 0.18);
 }
 
 .serviceTile:hover::before {
@@ -424,7 +424,7 @@
 }
 
 .serviceTile span {
-  color: rgba(86, 184, 199, 0.42);
+  color: rgba(44, 155, 173, 0.46);
   font-size: 3rem;
   font-weight: 900;
 }
@@ -501,7 +501,7 @@
 
 .mosaicItem:hover {
   transform: translateY(-7px);
-  box-shadow: 0 26px 70px rgba(86, 184, 199, 0.18);
+  box-shadow: 0 26px 70px rgba(22, 52, 73, 0.18);
 }
 
 .mosaicItem:hover::after {

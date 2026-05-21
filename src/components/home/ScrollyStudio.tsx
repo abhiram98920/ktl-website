@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { MutableRefObject, useMemo, useRef } from "react";
 import * as THREE from "three";
 import styles from "./ScrollyStudio.module.css";
@@ -24,6 +24,31 @@ const beats = [
     copy: "From modular installation to final handover, KTL keeps site coordination transparent and the workspace ready for day-one use.",
   },
 ];
+
+function StoryBeat({
+  beat,
+  index,
+  progress,
+  total,
+}: {
+  beat: (typeof beats)[number];
+  index: number;
+  progress: MotionValue<number>;
+  total: number;
+}) {
+  const inputRange = [(index - 0.45) / total, index / total, (index + 0.78) / total];
+  const opacity = useTransform(progress, inputRange, [0, 1, 0]);
+  const y = useTransform(progress, inputRange, [70, 0, -70]);
+  const rotateX = useTransform(progress, inputRange, [-10, 0, 10]);
+
+  return (
+    <motion.article className={styles.storyBeat} style={{ opacity, y, rotateX }}>
+      <span>{beat.label}</span>
+      <h2>{beat.title}</h2>
+      <p>{beat.copy}</p>
+    </motion.article>
+  );
+}
 
 function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> }) {
   const groupRef = useRef<THREE.Group>(null);
@@ -54,8 +79,8 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
         >
           <boxGeometry args={[4.9, 2.7, 0.055]} />
           <meshStandardMaterial
-            color={index % 3 === 0 ? "#1d8fa1" : "#7ccfac"}
-            emissive={index % 3 === 0 ? "#0f6f7d" : "#4aa983"}
+            color={index % 3 === 0 ? "#0f6f7d" : "#48a978"}
+            emissive={index % 3 === 0 ? "#0b4c59" : "#2d7f59"}
             emissiveIntensity={0.38}
             metalness={0.12}
             roughness={0.42}
@@ -65,7 +90,7 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
       ))}
       <mesh position={[0, -1.7, -8]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[20, 18, 24, 24]} />
-        <meshStandardMaterial color="#56b8c7" wireframe opacity={0.42} transparent />
+        <meshStandardMaterial color="#2c9bad" wireframe opacity={0.42} transparent />
       </mesh>
     </group>
   );
@@ -90,10 +115,10 @@ export default function ScrollyStudio() {
     <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.stickyScene}>
         <Canvas camera={{ position: [0, 0, 7.8], fov: 52 }} dpr={1}>
-          <color attach="background" args={["#dff4ff"]} />
+          <color attach="background" args={["#c7e1e8"]} />
           <ambientLight intensity={0.85} />
           <directionalLight position={[4, 5, 4]} intensity={1.7} />
-          <pointLight position={[-3, 1, 3]} color="#7ccfac" intensity={4.4} />
+          <pointLight position={[-3, 1, 3]} color="#48a978" intensity={4.4} />
           <FrameTunnel progressRef={progressRef} />
         </Canvas>
 
@@ -105,23 +130,18 @@ export default function ScrollyStudio() {
             <Image src="/profile-images/profile_page_10_image_01_xref_53.jpeg" alt="" fill sizes="25vw" />
           </motion.div>
         </div>
-      </div>
 
-      <div className={styles.storyRail}>
-        {beats.map((beat) => (
-          <motion.article
-            key={beat.label}
-            className={styles.storyBeat}
-            initial={{ opacity: 0, y: 32, rotateX: -8 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: false, amount: 0.55 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span>{beat.label}</span>
-            <h2>{beat.title}</h2>
-            <p>{beat.copy}</p>
-          </motion.article>
-        ))}
+        <div className={styles.storyRail}>
+          {beats.map((beat, index) => (
+            <StoryBeat
+              key={beat.label}
+              beat={beat}
+              index={index}
+              progress={scrollYProgress}
+              total={beats.length}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,21 +1,21 @@
 :root {
-  --color-bg: #f4fbfb;
-  --color-surface: #eef8f6;
-  --color-surface-hover: #e7f2fb;
-  --color-text: #1b2b38;
-  --color-text-muted: #607587;
+  --color-bg: #dcecef;
+  --color-surface: #cfe6e2;
+  --color-surface-hover: #c7e1e8;
+  --color-text: #173044;
+  --color-text-muted: #4f6b78;
   --color-primary: #122331;
-  --color-accent: #56b8c7;
-  --color-accent-2: #7ccfac;
-  --color-accent-3: #b9d8ff;
-  --color-sky: #dff4ff;
-  --color-lilac: #f1efff;
+  --color-accent: #2c9bad;
+  --color-accent-2: #48a978;
+  --color-accent-3: #7fb5d6;
+  --color-sky: #c7e1e8;
+  --color-lilac: #d6d4e9;
   --color-ink: #122331;
-  --color-clay: #56b8c7;
-  --color-sage: #e8f7ef;
-  --color-cream: #f9f6e8;
-  --color-blush: #fff0f3;
-  --color-border: rgba(31, 69, 89, 0.13);
+  --color-clay: #2c9bad;
+  --color-sage: #c8e3d2;
+  --color-cream: #e7dfbd;
+  --color-blush: #ead1d8;
+  --color-border: rgba(18, 49, 68, 0.18);
 
   --font-primary: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
   --font-heading: "Arial Black", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
@@ -79,7 +79,7 @@ body::after,
   top: 0;
   height: 100vh;
   width: 1px;
-  background-color: rgba(86, 184, 199, 0.16);
+  background-color: rgba(44, 155, 173, 0.2);
   z-index: 1;
   pointer-events: none;
 }
@@ -175,7 +175,7 @@ a[class*="Button"]:hover,
 a[class*="button"]:hover,
 .btn-primary:hover {
   transform: translateY(-4px) scale(1.015);
-  box-shadow: 0 22px 54px rgba(86, 184, 199, 0.2);
+  box-shadow: 0 22px 54px rgba(22, 52, 73, 0.2);
   filter: saturate(1.08);
 }
 
@@ -235,7 +235,7 @@ a[class*="button"]:active,
   background-color: var(--color-accent-2);
   color: #122331;
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(86, 184, 199, 0.22);
+  box-shadow: 0 18px 40px rgba(22, 52, 73, 0.2);
 }
 
 .btn-primary:hover::before {
@@ -320,15 +320,15 @@ a[class*="button"]:active,
   [class*="depthCard"],
   [class*="feature"]
 ):hover {
-  border-color: rgba(86, 184, 199, 0.42);
-  box-shadow: 0 28px 76px rgba(86, 184, 199, 0.18);
+  border-color: rgba(44, 155, 173, 0.5);
+  box-shadow: 0 28px 76px rgba(22, 52, 73, 0.18);
 }
 
 @media (hover: hover) and (pointer: fine) {
   :where(h1, h2, h3):hover {
-    color: #0b3d4a;
+    color: #123144;
     filter: saturate(1.08);
-    text-shadow: 0 16px 38px rgba(86, 184, 199, 0.18);
+    text-shadow: 0 16px 38px rgba(22, 52, 73, 0.16);
     transform: translateY(-3px);
   }
 }

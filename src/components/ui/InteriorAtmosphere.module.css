@@ -41,7 +41,7 @@
   position: absolute;
   height: 1px;
   width: 36vw;
-  background: rgba(86, 184, 199, 0.18);
+  background: rgba(44, 155, 173, 0.2);
   animation: driftLine 18s ease-in-out infinite alternate;
 }
 
