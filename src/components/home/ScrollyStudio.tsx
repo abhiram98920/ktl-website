@@ -54,18 +54,18 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
         >
           <boxGeometry args={[4.9, 2.7, 0.055]} />
           <meshStandardMaterial
-            color={index % 3 === 0 ? "#56b8c7" : "#e7f2fb"}
-            emissive={index % 3 === 0 ? "#56b8c7" : "#ffffff"}
-            emissiveIntensity={0.28}
-            metalness={0.2}
-            roughness={0.48}
+            color={index % 3 === 0 ? "#1d8fa1" : "#7ccfac"}
+            emissive={index % 3 === 0 ? "#0f6f7d" : "#4aa983"}
+            emissiveIntensity={0.38}
+            metalness={0.12}
+            roughness={0.42}
             wireframe
           />
         </mesh>
       ))}
       <mesh position={[0, -1.7, -8]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[20, 18, 24, 24]} />
-        <meshStandardMaterial color="#dff4ff" wireframe opacity={0.36} transparent />
+        <meshStandardMaterial color="#56b8c7" wireframe opacity={0.42} transparent />
       </mesh>
     </group>
   );
@@ -90,10 +90,10 @@ export default function ScrollyStudio() {
     <section ref={sectionRef} className={styles.scrollyStage} data-watermark="Process">
       <div className={styles.stickyScene}>
         <Canvas camera={{ position: [0, 0, 7.8], fov: 52 }} dpr={1}>
-          <color attach="background" args={["#eef8f6"]} />
-          <ambientLight intensity={0.65} />
-          <directionalLight position={[4, 5, 4]} intensity={1.4} />
-          <pointLight position={[-3, 1, 3]} color="#ffffff" intensity={4} />
+          <color attach="background" args={["#dff4ff"]} />
+          <ambientLight intensity={0.85} />
+          <directionalLight position={[4, 5, 4]} intensity={1.7} />
+          <pointLight position={[-3, 1, 3]} color="#7ccfac" intensity={4.4} />
           <FrameTunnel progressRef={progressRef} />
         </Canvas>
 
