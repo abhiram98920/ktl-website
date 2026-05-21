@@ -1,8 +1,8 @@
 .footer {
-  background: #163449;
+  background: #1d1d1f;
   color: #ffffff;
   padding-top: clamp(4rem, 8vw, 7rem);
-  border-top: 1px solid rgba(142, 226, 192, 0.34);
+  border-top: 1px solid rgba(79, 107, 166, 0.34);
   position: relative;
   z-index: 5;
   isolation: isolate;
@@ -14,7 +14,7 @@
   content: "";
   position: absolute;
   pointer-events: none;
-  border: 1px solid rgba(104, 183, 213, 0.24);
+  border: 1px solid rgba(79, 107, 166, 0.24);
   width: 320px;
   height: 190px;
   z-index: -1;
@@ -64,10 +64,10 @@
 .column h3 {
   font-size: 0.82rem;
   margin-bottom: 0.7rem;
-  color: #8ee2c0;
+  color: #aebbe0;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 900;
+  letter-spacing: 0;
+  font-weight: 700;
 }
 
 .description {
@@ -84,7 +84,7 @@
 }
 
 .column a:hover {
-  color: #8ee2c0;
+  color: #aebbe0;
   transform: translateX(6px);
 }
 

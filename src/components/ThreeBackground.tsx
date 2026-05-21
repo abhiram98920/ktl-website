@@ -32,7 +32,7 @@ function ArchitecturalScene() {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 10]} intensity={1.5} color="#0f7c90" />
+      <directionalLight position={[10, 10, 10]} intensity={1.5} color="#4f6ba6" />
       <directionalLight position={[-10, 10, -10]} intensity={0.5} color="#ffffff" />
       
       {/* Infinite architectural grid */}
@@ -55,7 +55,7 @@ function ArchitecturalScene() {
           {/* Solid accent wall */}
           <mesh position={[2, 0.5, -4]} rotation={[0, -Math.PI / 4, 0]}>
             <boxGeometry args={[5, 4, 0.2]} />
-            <meshStandardMaterial color="#2f9e6d" transparent opacity={0.9} />
+            <meshStandardMaterial color="#4f6ba6" transparent opacity={0.9} />
           </mesh>
           {/* Glass partition */}
           <mesh position={[0, 0, 2]} rotation={[0, Math.PI / 6, 0]}>

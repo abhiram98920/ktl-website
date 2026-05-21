@@ -15,10 +15,10 @@
   top: 118px;
   left: clamp(1rem, 4vw, 4rem);
   max-width: 92vw;
-  color: rgba(15, 124, 144, 0.065);
+  color: rgba(79, 107, 166, 0.07);
   font-family: var(--font-heading);
   font-size: clamp(5rem, 15vw, 14rem);
-  font-weight: 900;
+  font-weight: 600;
   line-height: 0.82;
   text-transform: uppercase;
   pointer-events: none;
@@ -38,14 +38,15 @@
   font-size: clamp(2.8rem, 6.5vw, 6.4rem);
   line-height: 0.95;
   margin-bottom: 1rem;
-  font-weight: 900;
+  font-weight: 600;
+  letter-spacing: -0.055em;
 }
 
 .subtitle {
   font-size: 0.82rem;
   color: var(--color-clay);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0;
   font-weight: 600;
 }
 
@@ -66,7 +67,7 @@
   font-size: 2rem;
   color: var(--color-primary);
   margin-bottom: 2rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .infoBlock {
@@ -91,7 +92,7 @@
   font-size: 1.08rem;
   color: var(--color-primary);
   margin-bottom: 0.5rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .infoBlock p {
@@ -122,7 +123,7 @@
   font-weight: 600;
   color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0;
 }
 
 .formGroup input,
@@ -142,7 +143,7 @@
   outline: none;
   border-color: var(--color-clay);
   background: var(--color-surface-hover);
-  box-shadow: 0 14px 34px rgba(15, 124, 144, 0.12);
+  box-shadow: var(--shadow-layered);
 }
 
 @media (max-width: 992px) {

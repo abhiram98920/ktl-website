@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { motion, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { MutableRefObject, useMemo, useRef } from "react";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { MutableRefObject, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import styles from "./ScrollyStudio.module.css";
 
@@ -24,36 +24,6 @@ const beats = [
     copy: "From modular installation to final handover, KTL keeps site coordination transparent and the workspace ready for day-one use.",
   },
 ];
-
-function StoryBeat({
-  beat,
-  index,
-  progress,
-  total,
-}: {
-  beat: (typeof beats)[number];
-  index: number;
-  progress: MotionValue<number>;
-  total: number;
-}) {
-  const segment = 1 / total;
-  const start = index * segment;
-  const enter = Math.min(1, start + segment * 0.24);
-  const exit = Math.max(0, start + segment * 0.78);
-  const end = Math.min(1, (index + 1) * segment);
-  const inputRange = [start, enter, exit, end];
-  const opacity = useTransform(progress, inputRange, [index === 0 ? 1 : 0, 1, 1, index === total - 1 ? 1 : 0]);
-  const y = useTransform(progress, inputRange, [72, 0, 0, -72]);
-  const rotateX = useTransform(progress, inputRange, [-10, 0, 0, 10]);
-
-  return (
-    <motion.article className={styles.storyBeat} style={{ opacity, y, rotateX }}>
-      <span>{beat.label}</span>
-      <h2>{beat.title}</h2>
-      <p>{beat.copy}</p>
-    </motion.article>
-  );
-}
 
 function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> }) {
   const groupRef = useRef<THREE.Group>(null);
@@ -84,18 +54,18 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
         >
           <boxGeometry args={[4.9, 2.7, 0.055]} />
           <meshStandardMaterial
-            color={index % 3 === 0 ? "#0f7c90" : "#2f9e6d"}
-            emissive={index % 3 === 0 ? "#0a5260" : "#1f6f4b"}
-            emissiveIntensity={0.38}
-            metalness={0.12}
-            roughness={0.42}
+            color={index % 3 === 0 ? "#4f6ba6" : "#7d91bf"}
+            emissive={index % 3 === 0 ? "#28395f" : "#4f6ba6"}
+            emissiveIntensity={0.2}
+            metalness={0.06}
+            roughness={0.5}
             wireframe
           />
         </mesh>
       ))}
       <mesh position={[0, -1.7, -8]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[20, 18, 24, 24]} />
-        <meshStandardMaterial color="#0f7c90" wireframe opacity={0.42} transparent />
+        <meshStandardMaterial color="#4f6ba6" wireframe opacity={0.3} transparent />
       </mesh>
     </group>
   );
@@ -104,13 +74,17 @@ function FrameTunnel({ progressRef }: { progressRef: MutableRefObject<number> })
 export default function ScrollyStudio() {
   const sectionRef = useRef<HTMLElement>(null);
   const progressRef = useRef(0);
+  const [activeBeat, setActiveBeat] = useState(0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    progressRef.current = value;
+    const progress = Math.min(0.999, Math.max(0, value));
+    progressRef.current = progress;
+    const nextBeat = Math.min(beats.length - 1, Math.floor(progress * beats.length));
+    setActiveBeat((currentBeat) => (currentBeat === nextBeat ? currentBeat : nextBeat));
   });
 
   const cardOneY = useTransform(scrollYProgress, [0, 1], ["16%", "-34%"]);
@@ -123,7 +97,7 @@ export default function ScrollyStudio() {
           <color attach="background" args={["#f7fbfc"]} />
           <ambientLight intensity={0.85} />
           <directionalLight position={[4, 5, 4]} intensity={1.7} />
-          <pointLight position={[-3, 1, 3]} color="#2f9e6d" intensity={4.4} />
+          <pointLight position={[-3, 1, 3]} color="#4f6ba6" intensity={3.4} />
           <FrameTunnel progressRef={progressRef} />
         </Canvas>
 
@@ -137,15 +111,17 @@ export default function ScrollyStudio() {
         </div>
 
         <div className={styles.storyRail}>
-          {beats.map((beat, index) => (
-            <StoryBeat
-              key={beat.label}
-              beat={beat}
-              index={index}
-              progress={scrollYProgress}
-              total={beats.length}
-            />
-          ))}
+          <motion.article
+            key={beats[activeBeat].label}
+            className={styles.storyBeat}
+            initial={{ opacity: 0, y: 30, scale: 0.98, rotateX: -8 }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span>{beats[activeBeat].label}</span>
+            <h2>{beats[activeBeat].title}</h2>
+            <p>{beats[activeBeat].copy}</p>
+          </motion.article>
         </div>
       </div>
     </section>

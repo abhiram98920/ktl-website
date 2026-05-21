@@ -1,28 +1,29 @@
 :root {
-  --color-bg: #f7fbfc;
+  --color-bg: #fafafa;
   --color-surface: #ffffff;
-  --color-surface-hover: #e8f6f5;
-  --color-text: #173044;
-  --color-text-muted: #4f6b78;
-  --color-primary: #122331;
-  --color-accent: #0f7c90;
-  --color-accent-2: #2f9e6d;
-  --color-accent-3: #68b7d5;
-  --color-sky: #eef8fb;
-  --color-lilac: #f4fbfc;
-  --color-ink: #122331;
-  --color-clay: #0f7c90;
-  --color-sage: #eaf8f0;
-  --color-cream: #f9fcfb;
-  --color-blush: #edf7f4;
-  --color-border: rgba(18, 49, 68, 0.18);
+  --color-surface-hover: #f3f5f8;
+  --color-text: #1d1d1f;
+  --color-text-muted: #5f6673;
+  --color-primary: #1d1d1f;
+  --color-accent: #4f6ba6;
+  --color-accent-2: #394f82;
+  --color-accent-3: #7d91bf;
+  --color-sky: #f3f5f8;
+  --color-lilac: #f7f8fa;
+  --color-ink: #1d1d1f;
+  --color-clay: #4f6ba6;
+  --color-sage: #eef2f8;
+  --color-cream: #fafafa;
+  --color-blush: #f5f6f8;
+  --color-border: rgba(29, 29, 31, 0.14);
+  --shadow-layered: 0 2px 8px rgba(0, 0, 0, 0.04), 0 24px 48px -8px rgba(0, 0, 0, 0.06), 0 48px 80px -12px rgba(0, 0, 0, 0.04);
 
-  --font-primary: "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
-  --font-heading: "Arial Black", "Trebuchet MS", "Helvetica Neue", Arial, sans-serif;
+  --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
 
-  --transition-fast: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-  --transition-normal: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  --transition-slow: 1s cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -79,7 +80,7 @@ body::after,
   top: 0;
   height: 100vh;
   width: 1px;
-  background-color: rgba(15, 124, 144, 0.11);
+  background-color: rgba(79, 107, 166, 0.12);
   z-index: 1;
   pointer-events: none;
 }
@@ -101,6 +102,10 @@ main {
   z-index: 2;
 }
 
+section > * {
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 h1,
 h2,
 h3,
@@ -108,10 +113,10 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  font-weight: 900;
-  line-height: 0.96;
+  font-weight: 600;
+  line-height: 1.1;
   color: var(--color-primary);
-  letter-spacing: 0;
+  letter-spacing: -0.045em;
   transition:
     color var(--transition-fast),
     filter var(--transition-fast),
@@ -145,7 +150,7 @@ a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]),
   isolation: isolate;
   transform: translateZ(0);
   transition:
-    background-color var(--transition-fast),
+  background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast),
     box-shadow var(--transition-fast),
@@ -175,7 +180,7 @@ a[class*="Button"]:not([class*="floatingButton"]):not([class*="closeButton"]):ho
 a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):hover,
 .btn-primary:hover {
   transform: translateY(-4px) scale(1.015);
-  box-shadow: 0 22px 54px rgba(22, 52, 73, 0.2);
+  box-shadow: var(--shadow-layered);
   filter: saturate(1.08);
 }
 
@@ -209,9 +214,9 @@ a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):ac
   color: #ffffff;
   padding: 0.9rem 1.7rem;
   font-size: 0.76rem;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.8px;
+  letter-spacing: 0;
   border: 1px solid var(--color-accent);
   border-radius: 0;
   position: relative;
@@ -233,9 +238,9 @@ a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):ac
 
 .btn-primary:hover {
   background-color: var(--color-accent-2);
-  color: #122331;
+  color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 18px 40px rgba(22, 52, 73, 0.2);
+  box-shadow: var(--shadow-layered);
 }
 
 .btn-primary:hover::before {
@@ -320,15 +325,15 @@ a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):ac
   [class*="depthCard"],
   [class*="feature"]
 ):hover {
-  border-color: rgba(44, 155, 173, 0.5);
-  box-shadow: 0 28px 76px rgba(22, 52, 73, 0.18);
+  border-color: rgba(79, 107, 166, 0.42);
+  box-shadow: var(--shadow-layered);
 }
 
 @media (hover: hover) and (pointer: fine) {
   :where(h1, h2, h3):hover {
-    color: #123144;
+    color: var(--color-accent);
     filter: saturate(1.08);
-    text-shadow: 0 16px 38px rgba(22, 52, 73, 0.16);
+    text-shadow: 0 16px 38px rgba(29, 29, 31, 0.08);
     transform: translateY(-3px);
   }
 }

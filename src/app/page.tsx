@@ -49,6 +49,11 @@ export default function Home() {
   const serviceItems = list(servicesSection.items, []);
   const reasonItems = list(why.items, []);
   const gallery = list(showcase.images, []);
+  const heroSlideImages = Array.from(new Set([
+    text(hero.image, "/profile-images/profile_page_01_image_01_xref_304.jpeg"),
+    ...gallery,
+    text(consultation.image, "/profile-images/profile_page_04_image_01_xref_347.jpeg"),
+  ])).slice(0, 4);
   const consultationItems = cards<HomeCard>(consultation.items, []);
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -62,14 +67,19 @@ export default function Home() {
   return (
     <div ref={containerRef} className={styles.mainContainer}>
       <section className={styles.hero}>
-        <Image
-          src={text(hero.image, "/profile-images/profile_page_01_image_01_xref_304.jpeg")}
-          alt="KTL office interior"
-          fill
-          priority
-          sizes="100vw"
-          className={styles.heroImage}
-        />
+        <div className={styles.heroSlides} aria-hidden="true">
+          {heroSlideImages.map((src, index) => (
+            <Image
+              key={src}
+              src={src}
+              alt=""
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              className={styles.heroImage}
+            />
+          ))}
+        </div>
         <div className={styles.heroShade} />
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className={styles.heroContent}>
           <p className={styles.eyebrow}>{text(hero.eyebrow)}</p>

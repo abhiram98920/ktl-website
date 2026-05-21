@@ -15,10 +15,10 @@
   top: 118px;
   left: clamp(1rem, 4vw, 4rem);
   max-width: 92vw;
-  color: rgba(15, 124, 144, 0.065);
+  color: rgba(79, 107, 166, 0.07);
   font-family: var(--font-heading);
   font-size: clamp(5rem, 15vw, 14rem);
-  font-weight: 900;
+  font-weight: 600;
   line-height: 0.82;
   text-transform: uppercase;
   pointer-events: none;
@@ -37,7 +37,7 @@
 .kicker {
   color: var(--color-clay);
   font-size: 0.72rem;
-  letter-spacing: 2.4px;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-weight: 600;
@@ -46,7 +46,8 @@
 .header h1 {
   font-size: clamp(2.8rem, 6.5vw, 6.4rem);
   line-height: 0.95;
-  font-weight: 900;
+  font-weight: 600;
+  letter-spacing: -0.055em;
 }
 
 .servicesGrid {
@@ -94,7 +95,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(18, 49, 68, 0.58);
+  background: rgba(29, 29, 31, 0.54);
 }
 
 .imageWrapper img {
@@ -110,8 +111,8 @@
 
 .serviceCard:hover {
   transform: translateY(-8px);
-  border-color: rgba(47, 158, 109, 0.46);
-  box-shadow: 0 28px 70px rgba(15, 124, 144, 0.18);
+  border-color: rgba(79, 107, 166, 0.46);
+  box-shadow: var(--shadow-layered);
 }
 
 .serviceCard:hover::before {
@@ -131,14 +132,14 @@
   font-size: 2.5rem;
   line-height: 1;
   margin-bottom: 1rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .serviceCard h3 {
   color: #ffffff;
   font-size: clamp(1.5rem, 2.4vw, 2.4rem);
   margin-bottom: 0.8rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .serviceCard p {

@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 18px 45px rgba(15, 124, 144, 0.24);
+  box-shadow: var(--shadow-layered);
   z-index: 99;
   transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
 }
@@ -45,7 +45,7 @@
   overflow: auto;
   border: 1px solid var(--color-border);
   background: #ffffff;
-  box-shadow: 0 30px 100px rgba(15, 124, 144, 0.18);
+  box-shadow: var(--shadow-layered);
 }
 
 .closeButton {
@@ -67,7 +67,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: #163449;
+  background-color: #1d1d1f;
   filter: saturate(1.06);
 }
 
@@ -75,7 +75,7 @@
 .formKicker {
   color: var(--color-clay);
   font-size: 0.72rem;
-  letter-spacing: 1.8px;
+  letter-spacing: 0;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -85,7 +85,7 @@
   font-size: clamp(2.2rem, 4vw, 4rem);
   line-height: 0.98;
   margin: 1rem 0;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 .visualPanel p {
@@ -123,10 +123,10 @@
 
 .formGroup label {
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 700;
   color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 1.4px;
+  letter-spacing: 0;
 }
 
 .formGroup input,
@@ -170,7 +170,7 @@
 
 .successState h2 {
   font-size: clamp(2rem, 4vw, 3.6rem);
-  font-weight: 900;
+  font-weight: 600;
 }
 
 @keyframes fadeIn {
