@@ -136,9 +136,9 @@ button {
   font-family: inherit;
 }
 
-button,
-a[class*="Button"],
-a[class*="button"],
+button:not([class*="closeButton"]),
+a[class*="Button"]:not([class*="floatingButton"]):not([class*="closeButton"]),
+a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]),
 .btn-primary {
   position: relative;
   overflow: hidden;
@@ -153,9 +153,9 @@ a[class*="button"],
     transform var(--transition-fast);
 }
 
-button::after,
-a[class*="Button"]::after,
-a[class*="button"]::after,
+button:not([class*="closeButton"])::after,
+a[class*="Button"]:not([class*="floatingButton"]):not([class*="closeButton"])::after,
+a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"])::after,
 .btn-primary::after {
   content: "";
   position: absolute;
@@ -170,25 +170,25 @@ a[class*="button"]::after,
   z-index: -1;
 }
 
-button:hover,
-a[class*="Button"]:hover,
-a[class*="button"]:hover,
+button:not([class*="closeButton"]):hover,
+a[class*="Button"]:not([class*="floatingButton"]):not([class*="closeButton"]):hover,
+a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):hover,
 .btn-primary:hover {
   transform: translateY(-4px) scale(1.015);
   box-shadow: 0 22px 54px rgba(22, 52, 73, 0.2);
   filter: saturate(1.08);
 }
 
-button:hover::after,
-a[class*="Button"]:hover::after,
-a[class*="button"]:hover::after,
+button:not([class*="closeButton"]):hover::after,
+a[class*="Button"]:not([class*="floatingButton"]):not([class*="closeButton"]):hover::after,
+a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):hover::after,
 .btn-primary:hover::after {
   transform: translateX(520%) skewX(-16deg);
 }
 
-button:active,
-a[class*="Button"]:active,
-a[class*="button"]:active,
+button:not([class*="closeButton"]):active,
+a[class*="Button"]:not([class*="floatingButton"]):not([class*="closeButton"]):active,
+a[class*="button"]:not([class*="floatingButton"]):not([class*="closeButton"]):active,
 .btn-primary:active {
   transform: translateY(-1px) scale(0.99);
 }
