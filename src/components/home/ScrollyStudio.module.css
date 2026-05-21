@@ -1,5 +1,6 @@
 .scrollyStage {
   position: relative;
+  min-height: 300svh;
   background:
     linear-gradient(90deg, rgba(29, 29, 31, 0.8) 0%, rgba(29, 29, 31, 0.78) 52%, rgba(247, 251, 252, 0.3) 52%, rgba(247, 251, 252, 0.95) 100%),
     radial-gradient(circle at 74% 42%, rgba(79, 107, 166, 0.22), transparent 36%),
@@ -153,7 +154,8 @@
 }
 
 .storyTrack {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 5;
   pointer-events: none;
 }
