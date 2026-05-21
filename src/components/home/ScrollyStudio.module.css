@@ -1,9 +1,10 @@
 .scrollyStage {
+  --scrolly-nav-offset: clamp(88px, 10vh, 122px);
   position: relative;
-  min-height: 300vh;
+  min-height: 240svh;
   background: var(--color-bg);
   isolation: isolate;
-  overflow: visible;
+  overflow: hidden;
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(90deg, rgba(29, 29, 31, 0), rgba(79, 107, 166, 0.26), rgba(29, 29, 31, 0)) 1;
 }
@@ -46,9 +47,10 @@
 
 .stickyScene {
   position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  top: var(--scrolly-nav-offset);
+  height: calc(100vh - var(--scrolly-nav-offset));
+  height: calc(100svh - var(--scrolly-nav-offset));
+  min-height: 620px;
   overflow: hidden;
   perspective: 1200px;
   z-index: 1;
@@ -132,7 +134,7 @@
   bottom: 0;
   left: clamp(1.25rem, 8vw, 7rem);
   z-index: 4;
-  width: min(620px, calc(50vw - 80px));
+  width: min(620px, calc(52vw - 80px));
   height: 100%;
   pointer-events: none;
   perspective: 900px;
@@ -145,6 +147,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: clamp(1.5rem, 4vh, 3rem) 0;
   transform-style: preserve-3d;
   will-change: opacity, transform;
   backface-visibility: hidden;
@@ -160,9 +163,9 @@
 }
 
 .storyBeat h2 {
-  font-size: clamp(3.4rem, 5.2vw, 6.1rem);
-  line-height: 1.04;
-  margin-bottom: 1.4rem;
+  font-size: clamp(2.9rem, 4.7vw, 5.25rem);
+  line-height: 0.98;
+  margin-bottom: 1.15rem;
   text-wrap: balance;
   font-weight: 600;
   color: #ffffff;
@@ -173,9 +176,9 @@
 .storyBeat p {
   max-width: 540px;
   color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(1.2rem, 1.5vw, 1.45rem);
+  font-size: clamp(1.08rem, 1.35vw, 1.3rem);
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 @keyframes scrollyWatermarkLeft {
@@ -198,7 +201,8 @@
 
 @media (max-width: 900px) {
   .scrollyStage {
-    min-height: 300vh;
+    --scrolly-nav-offset: 86px;
+    min-height: 250svh;
   }
 
   .depthCard {
@@ -231,6 +235,7 @@
 
   .storyBeat {
     min-height: 72vh;
+    padding-top: 3rem;
   }
 
   .storyRail {
@@ -238,6 +243,7 @@
   }
 
   .storyBeat h2 {
-    font-size: clamp(3.2rem, 12vw, 5rem);
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    line-height: 0.98;
   }
 }

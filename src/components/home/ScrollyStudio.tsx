@@ -155,13 +155,13 @@ export default function ScrollyStudio() {
   const [activeBeat, setActiveBeat] = useState(0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ["start 72%", "end 28%"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (value) => {
     const progress = Math.min(0.999, Math.max(0, value));
     progressRef.current = progress;
-    const nextBeat = Math.min(beats.length - 1, Math.floor(progress * beats.length));
+    const nextBeat = Math.min(beats.length - 1, Math.floor(progress * beats.length + 0.08));
     setActiveBeat((currentBeat) => (currentBeat === nextBeat ? currentBeat : nextBeat));
   });
 
