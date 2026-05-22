@@ -39,12 +39,16 @@ function ProcessCard({
     offset: ["start end", "end start"],
   });
 
-  const cardY = useTransform(scrollYProgress, [0, 0.12, 0.78, 0.92], [100, 0, 0, -60]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.12, 0.78, 0.92], [0, 1, 1, 0]);
-  const cardScale = useTransform(scrollYProgress, [0, 0.12, 0.78, 0.92], [0.93, 1, 1, 0.96]);
+  const entryTilt = index % 2 === 0 ? -7 : 7;
+  const exitTilt = index % 2 === 0 ? 4 : -4;
+  const cardY = useTransform(scrollYProgress, [0, 0.16, 0.72, 0.94], [64, 0, -18, -96]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.76, 0.94], [1, 1, 0]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.16, 0.72, 0.94], [0.94, 1, 0.985, 0.94]);
+  const cardRotateX = useTransform(scrollYProgress, [0, 0.18, 0.74, 0.94], [10, 0, 0, -8]);
+  const cardRotateZ = useTransform(scrollYProgress, [0, 0.18, 0.74, 0.94], [entryTilt, 0, 0, exitTilt]);
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1.01, 1.1]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.14, 1.03, 1.12]);
 
   const labelY = useTransform(scrollYProgress, [0, 0.12, 0.15], [20, 20, 0]);
   const labelOpacity = useTransform(scrollYProgress, [0, 0.12, 0.15], [0, 0, 1]);
@@ -57,8 +61,16 @@ function ProcessCard({
     <div ref={stepRef} className={styles.cardStep}>
       <motion.article
         className={`${styles.processCard} ${styles[`card${index + 1}`]}`}
-        style={{ y: cardY, opacity: cardOpacity, scale: cardScale }}
+        style={{
+          y: cardY,
+          opacity: cardOpacity,
+          scale: cardScale,
+          rotateX: cardRotateX,
+          rotateZ: cardRotateZ,
+        }}
       >
+        <div className={styles.cardGlow} aria-hidden="true" />
+        <div className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</div>
         <div className={styles.cardCopy}>
           <motion.span style={{ y: labelY, opacity: labelOpacity }}>
             {beat.label}
@@ -78,7 +90,6 @@ function ProcessCard({
             sizes="(max-width: 900px) 100vw, 44vw"
           />
         </motion.div>
-        <div className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</div>
       </motion.article>
     </div>
   );
@@ -92,6 +103,7 @@ export default function ScrollyStudio() {
         <h2>From brief to handover, every workspace decision stays visible.</h2>
       </div>
       <div className={styles.cardStack}>
+        <div className={styles.stackRail} aria-hidden="true" />
         {beats.map((beat, index) => (
           <ProcessCard key={beat.label} beat={beat} index={index} />
         ))}

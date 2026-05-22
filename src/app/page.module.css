@@ -28,7 +28,7 @@
 }
 
 .ctaImage {
-  filter: saturate(1.08) contrast(1.02) brightness(1.04);
+  filter: saturate(1.14) contrast(1.05) brightness(1.08);
 }
 
 .heroSlides .heroImage {
@@ -705,8 +705,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(29, 29, 31, 0.42), rgba(29, 29, 31, 0.28)),
-    rgba(29, 29, 31, 0.18);
+    linear-gradient(90deg, rgba(29, 29, 31, 0.32), rgba(29, 29, 31, 0.18)),
+    linear-gradient(180deg, rgba(29, 29, 31, 0.12), rgba(29, 29, 31, 0.28));
   z-index: 1;
 }
 
@@ -718,13 +718,13 @@
 
 .ctaSection::before {
   z-index: 2;
-  color: rgba(255, 255, 255, 0.11);
+  color: rgba(255, 255, 255, 0.07);
   text-align: left;
 }
 
 .ctaSection::after {
   z-index: 2;
-  color: rgba(255, 255, 255, 0.075);
+  color: rgba(255, 255, 255, 0.045);
 }
 
 .ctaContent .eyebrow,
@@ -737,7 +737,7 @@
 }
 
 .ctaContent p {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.86);
   margin-left: auto;
   margin-right: auto;
   max-width: 620px;
