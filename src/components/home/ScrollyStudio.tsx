@@ -33,33 +33,54 @@ function ProcessCard({
   beat: (typeof beats)[number];
   index: number;
 }) {
-  const cardRef = useRef<HTMLElement>(null);
+  const stepRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: cardRef,
+    target: stepRef,
     offset: ["start end", "end start"],
   });
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-9%", "9%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.01, 1.08]);
+
+  const cardY = useTransform(scrollYProgress, [0, 0.12, 0.78, 0.92], [100, 0, 0, -60]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.12, 0.78, 0.92], [0, 1, 1, 0]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.12, 0.78, 0.92], [0.93, 1, 1, 0.96]);
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1.01, 1.1]);
+
+  const labelY = useTransform(scrollYProgress, [0, 0.12, 0.15], [20, 20, 0]);
+  const labelOpacity = useTransform(scrollYProgress, [0, 0.12, 0.15], [0, 0, 1]);
+  const titleY = useTransform(scrollYProgress, [0, 0.14, 0.18], [30, 30, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.14, 0.18], [0, 0, 1]);
+  const copyY = useTransform(scrollYProgress, [0, 0.16, 0.22], [40, 40, 0]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.16, 0.22], [0, 0, 1]);
 
   return (
-    <motion.article
-      ref={cardRef}
-      className={`${styles.processCard} ${styles[`card${index + 1}`]}`}
-      initial={{ opacity: 0, scale: 0.98 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: false, amount: 0.36 }}
-      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <div className={styles.cardCopy}>
-        <span>{beat.label}</span>
-        <h2>{beat.title}</h2>
-        <p>{beat.copy}</p>
-      </div>
-      <motion.div className={styles.cardImage} style={{ y: imageY, scale: imageScale }}>
-        <Image src={beat.image} alt={`${beat.label} KTL Interiors process`} fill sizes="(max-width: 900px) 100vw, 44vw" />
-      </motion.div>
-      <div className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</div>
-    </motion.article>
+    <div ref={stepRef} className={styles.cardStep}>
+      <motion.article
+        className={`${styles.processCard} ${styles[`card${index + 1}`]}`}
+        style={{ y: cardY, opacity: cardOpacity, scale: cardScale }}
+      >
+        <div className={styles.cardCopy}>
+          <motion.span style={{ y: labelY, opacity: labelOpacity }}>
+            {beat.label}
+          </motion.span>
+          <motion.h2 style={{ y: titleY, opacity: titleOpacity }}>
+            {beat.title}
+          </motion.h2>
+          <motion.p style={{ y: copyY, opacity: copyOpacity }}>
+            {beat.copy}
+          </motion.p>
+        </div>
+        <motion.div className={styles.cardImage} style={{ y: imageY, scale: imageScale }}>
+          <Image
+            src={beat.image}
+            alt={`${beat.label} KTL Interiors process`}
+            fill
+            sizes="(max-width: 900px) 100vw, 44vw"
+          />
+        </motion.div>
+        <div className={styles.cardIndex}>{String(index + 1).padStart(2, "0")}</div>
+      </motion.article>
+    </div>
   );
 }
 
@@ -72,9 +93,7 @@ export default function ScrollyStudio() {
       </div>
       <div className={styles.cardStack}>
         {beats.map((beat, index) => (
-          <div key={beat.label} className={styles.cardStep}>
-            <ProcessCard beat={beat} index={index} />
-          </div>
+          <ProcessCard key={beat.label} beat={beat} index={index} />
         ))}
       </div>
     </section>

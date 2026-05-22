@@ -63,7 +63,7 @@
 .cardStep {
   position: relative;
   min-height: 115vh;
-  margin-bottom: calc(-1 * (min(720px, calc(100svh - 7rem)) - 34px));
+  margin-bottom: calc(-1 * (min(720px, calc(100svh - 7rem)) - 4rem));
 }
 
 .cardStep:last-child {
@@ -181,6 +181,7 @@
     position: relative;
     inset: auto;
     transform: none !important;
+    opacity: 1 !important;
     top: auto;
     min-height: auto;
     grid-template-columns: 1fr;
