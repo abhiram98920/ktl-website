@@ -91,12 +91,29 @@
 .bottomBar {
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   padding: 1.4rem 0;
-  text-align: center;
 }
 
-.bottomBar p {
+.bottomContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.bottomContent p,
+.bottomContent a {
   color: rgba(255, 255, 255, 0.56);
   font-size: 0.82rem;
+}
+
+.bottomContent a {
+  color: #aebbe0;
+  font-weight: 700;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.bottomContent a:hover {
+  color: #ffffff;
 }
 
 @keyframes footerPlane {
@@ -119,5 +136,10 @@
 @media (max-width: 576px) {
   .footerContent {
     grid-template-columns: 1fr;
+  }
+
+  .bottomContent {
+    flex-direction: column;
+    text-align: center;
   }
 }

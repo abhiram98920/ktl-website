@@ -36,8 +36,12 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.bottomBar}>
-        <div className="container">
+        <div className={`container ${styles.bottomContent}`}>
           <p>&copy; {new Date().getFullYear()} KTL Interiors. All rights reserved.</p>
+          <p>
+            Designed and developed by{' '}
+            <a href="tel:+917012649326">Abhiram P Mohan</a>
+          </p>
         </div>
       </div>
     </footer>
