@@ -59,19 +59,17 @@
 .cardStack {
   position: relative;
   z-index: 1;
-  perspective: 1600px;
-  transform-style: preserve-3d;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   padding-left: clamp(0rem, 3vw, 2.4rem);
 }
 
 .cardStep {
   position: relative;
-  min-height: 108vh;
-  margin-bottom: calc(-1 * (min(650px, calc(100svh - 8rem)) - 3.2rem));
+  min-height: auto;
 }
 
 .cardStep:last-child {
-  min-height: min(650px, calc(100svh - 8rem));
   margin-bottom: 0;
 }
 
@@ -104,22 +102,20 @@
 }
 
 .processCard {
-  position: sticky;
-  top: clamp(6.75rem, 13vh, 8.5rem);
-  min-height: min(650px, calc(100svh - 8rem));
+  position: relative;
+  min-height: clamp(480px, 56vw, 620px);
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(360px, 1.22fr);
-  gap: clamp(1.25rem, 4vw, 4.2rem);
+  grid-template-columns: minmax(340px, 0.82fr) minmax(420px, 1.18fr);
+  gap: clamp(1.5rem, 4vw, 4.4rem);
   align-items: stretch;
-  padding: clamp(1rem, 2.4vw, 1.8rem);
+  padding: clamp(1.15rem, 2.6vw, 2rem);
   overflow: hidden;
   background: #ffffff;
   border: 1px solid var(--color-border);
   box-shadow:
     0 40px 90px -42px rgba(29, 29, 31, 0.42),
     0 20px 60px -36px rgba(79, 107, 166, 0.42);
-  transform-origin: 50% 60%;
-  transform-style: preserve-3d;
+  transform-origin: center;
   will-change: transform, opacity;
 }
 
@@ -155,14 +151,14 @@
   max-width: 680px;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(1.2rem, 3vw, 3rem);
+  padding: clamp(4.8rem, 7vw, 6.2rem) clamp(1.2rem, 3vw, 3rem) clamp(1.8rem, 3vw, 3rem);
 }
 
 .cardCopy h2 {
   margin: 0.9rem 0 1.1rem;
   color: var(--color-primary);
-  font-size: clamp(2.35rem, 4.1vw, 4.45rem);
-  line-height: 1.02;
+  font-size: clamp(2rem, 3.35vw, 3.85rem);
+  line-height: 1.08;
   font-weight: 600;
   letter-spacing: 0;
   text-wrap: balance;
@@ -170,7 +166,7 @@
 
 .cardCopy p {
   color: var(--color-text-muted);
-  font-size: clamp(1.08rem, 1.5vw, 1.32rem);
+  font-size: clamp(1rem, 1.28vw, 1.22rem);
   font-weight: 500;
   line-height: 1.6;
 }
@@ -184,7 +180,6 @@
   border: 1px solid rgba(79, 107, 166, 0.18);
   box-shadow: 0 26px 70px -32px rgba(29, 29, 31, 0.64);
   background: var(--color-surface);
-  transform: translateZ(70px);
 }
 
 .cardImage img {
@@ -209,7 +204,6 @@
   font-weight: 600;
   letter-spacing: 0;
   pointer-events: none;
-  transform: translateZ(92px);
 }
 
 @keyframes watermarkLeft {
@@ -234,7 +228,6 @@
 
   .cardStack {
     padding-left: 0;
-    perspective: none;
   }
 
   .stackRail {
@@ -249,15 +242,10 @@
 
   .processCard {
     position: relative;
-    inset: auto;
-    transform: none !important;
-    opacity: 1 !important;
-    top: auto;
     min-height: auto;
     grid-template-columns: 1fr;
     padding: 1.1rem;
     margin-bottom: 1rem;
-    transform-style: flat;
   }
 
   .processCard:nth-child(2),
@@ -279,10 +267,5 @@
 
   .cardImage {
     min-height: 320px;
-    transform: none;
-  }
-
-  .cardIndex {
-    transform: none;
   }
 }
